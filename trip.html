@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Trip Tracker | ٹرپ ٹریکر</title>
+<style>
+:root{--bg:#f3f5f9;--card:#fff;--ink:#17202e;--mut:#5a6677;--br:#1f3864;--ac:#c28a1a;--ln:#d8dfeb;--ok:#1f9d55;--bad:#c0392b;--warn:#d98324}
+@media(prefers-color-scheme:dark){:root{--bg:#10161e;--card:#1a232f;--ink:#eef2f7;--mut:#a9b4c3;--br:#8db6ff;--ac:#e5b04a;--ln:#2d3947}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Arial,"Noto Nastaliq Urdu",sans-serif}
+header{background:var(--br);color:#fff;padding:14px 16px}@media(prefers-color-scheme:dark){header{color:#10161e}}
+header b{font-size:20px}header small{display:block;opacity:.85}
+nav{display:flex;position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--ln);z-index:5}
+nav button{flex:1;padding:10px 4px;border:0;background:none;color:var(--ink);font:inherit;font-weight:bold;border-bottom:3px solid transparent}
+nav button.on{border-color:var(--ac);color:var(--br)}
+main{max-width:720px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.chip{display:inline-block;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:bold;color:#fff;background:var(--mut)}
+.chip.loaded{background:#2c5aa0}.chip.onway{background:var(--warn)}.chip.delivered{background:var(--ok)}.chip.late{background:var(--bad)}
+.mut{color:var(--mut);font-size:14px}
+.b{display:inline-block;border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:bold;color:#fff;background:var(--br);text-decoration:none;cursor:pointer;margin:6px 6px 0 0}
+@media(prefers-color-scheme:dark){.b{color:#10161e}}
+.b.g{background:var(--ok)}.b.o{background:var(--warn)}.b.x{background:var(--mut)}
+label{display:block;font-weight:bold;margin:10px 0 4px}
+input,textarea{width:100%;padding:11px;border:1px solid var(--ln);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink)}
+table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;border-bottom:1px solid var(--ln);text-align:left;font-size:14px}
+.note{border:1px dashed var(--ac);border-radius:12px;padding:10px;margin-bottom:12px;font-size:14px;background:var(--card)}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:20}
+#ov.on{display:flex}.sheet{background:var(--card);width:100%;max-width:520px;border-radius:18px 18px 0 0;padding:16px;max-height:92vh;overflow:auto}
+label.b{display:inline-block;margin:6px 6px 0 0}select{width:100%;padding:11px;border:1px solid var(--ln);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink)}iframe{width:100%;height:260px;border:1px solid var(--ln);border-radius:10px;margin-top:8px}.ph{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--ln)}.th{height:80px;border-radius:8px;border:1px solid var(--ln);margin:4px 4px 0 0;cursor:pointer}.th.z{height:auto;width:100%}.big{display:block;width:100%;padding:15px;font-size:18px;margin:8px 0}
+</style></head><body>
+<header><b>Trip Tracker</b><small>ٹرپ ٹریکر · Cargo trips, documents and delivery proof</small></header>
+<nav id="nav"><button data-tab="trips">Trips<br>ٹرپس</button><button data-tab="new">New<br>نیا ٹرپ</button><button data-tab="drv">Drivers<br>ڈرائیورز</button><button data-tab="rep">Report<br>رپورٹ</button></nav>
+<main><div class="note"><b>Demo by Mushtaque Ahmed Shaikh</b> (30+ years FMCG sales, Sukkur). No login, nothing is sent to anyone: your data stays on this phone (only maps load from Google). / ڈیمو: کوئی لاگ اِن نہیں، ڈیٹا کہیں نہیں بھیجا جاتا، صرف اسی فون میں رہتا ہے۔<br><button class="b" data-a="mode" id="mb"></button><button class="b g" data-a="shapp">Share this app / ایپ شیئر کریں</button><button class="b x" data-a="sample">Load sample data</button><button class="b x" data-a="clear">Clear all</button></div><div id="v"></div></main>
+<div id="ov"><div class="sheet" id="sh"></div></div>
+<script>
+(function(){
+var MK='tripmode1',M='full',K='tripdemo1',DK='tripdrv1',D=[],dphoto='',T=[],tab='trips',cur=null,v=document.getElementById('v'),ov=document.getElementById('ov'),sh=document.getElementById('sh');
+var S={created:'Created / بنایا گیا',loaded:'Loaded / لوڈ ہوا',onway:'On the way / راستے میں',delivered:'Delivered / پہنچ گیا'};
+function ld(){try{T=JSON.parse(localStorage.getItem(K))||[]}catch(e){T=[]}try{D=JSON.parse(localStorage.getItem(DK))||[]}catch(e){D=[]}}
+function sv(){try{localStorage.setItem(K,JSON.stringify(T));localStorage.setItem(DK,JSON.stringify(D));return true}catch(e){alert('Storage full. Delete some documents. / جگہ ختم، کچھ دستاویزات حذف کریں۔');return false}}
+function shrink(f,m,cb){var im=new Image(),u=URL.createObjectURL(f);im.onload=function(){var k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);cb(c.toDataURL('image/jpeg',.6))};im.onerror=function(){alert('Cannot read image / تصویر نہیں کھلی')};im.src=u}
+function q(s){return encodeURIComponent(s+', Pakistan')}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function fd(s){if(!s)return'-';var d=new Date(s);return isNaN(d)?'-':d.toLocaleString([],{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}
+function late(t){return t.status!=='delivered'&&t.eta&&new Date(t.eta)<new Date()}
+function dtm(t){for(var i=t.log.length-1;i>=0;i--)if(t.log[i].s==='delivered')return t.log[i].t;return null}
+function phn(p){p=String(p||'').replace(/\D/g,'');if(p.indexOf('0')===0)p='92'+p.slice(1);return p}
+function msg(t){return'Trip '+t.id+': '+t.from+' to '+t.to+'\nVehicle: '+t.veh+'\nGoods: '+t.goods+'\nInvoice: '+t.inv+'\nExpected: '+fd(t.eta)+'\nStatus: '+S[t.status]}
+function get(id){return T.filter(function(t){return t.id===id})[0]}
+function rTrips(){
+ if(!T.length)return'<div class="card">No trips yet. Add one in "New" or load sample data.<br>ابھی کوئی ٹرپ نہیں۔ "نیا ٹرپ" میں بنائیں یا نمونہ ڈیٹا لوڈ کریں۔</div>';
+ return T.slice().reverse().map(function(t){
+  return'<div class="card"><div class="row"><b>'+esc(t.id)+' · '+esc(t.from)+' → '+esc(t.to)+'</b><span><span class="chip '+t.status+'">'+S[t.status]+'</span>'+(late(t)?' <span class="chip late">Late / تاخیر</span>':'')+'</span></div>'+
+  '<div class="mut">'+esc(t.veh)+' · '+esc(t.drv)+' · '+esc(t.goods)+'<br>To: '+esc(t.co)+' · Transporter: '+esc(t.tp)+'<br>Invoice: '+esc(t.inv)+' · ETA: '+fd(t.eta)+'</div>'+
+  (t.claim?'<div class="mut" style="color:var(--bad)">Claim: '+esc(t.claim)+'</div>':'')+
+  '<button class="b" data-a="upd" data-i="'+esc(t.id)+'">Update</button>'+(t.phone?'<a class="b g" target="_blank" rel="noopener" href="https://wa.me/'+phn(t.phone)+'?text='+encodeURIComponent(msg(t))+'">WhatsApp</a>':'')+'<button class="b" data-a="share" data-i="'+esc(t.id)+'">Share / شیئر</button><button class="b x" data-a="log" data-i="'+esc(t.id)+'">History</button><button class="b o" data-a="map" data-i="'+esc(t.id)+'">Map / نقشہ</button><button class="b" data-a="docs" data-i="'+esc(t.id)+'">Documents / دستاویزات ('+(t.docs||[]).length+')</button><div class="mut" id="l'+esc(t.id)+'"></div></div>'}).join('')}
+function fld(id,l,ph,ty){return'<label>'+l+'</label><input id="'+id+'" placeholder="'+(ph||'')+'"'+(ty?' type="'+ty+'"':'')+'>'}
+function rNew(){var d=new Date(Date.now()+864e5);d.setHours(18,0,0,0);var e=new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,16);
+ return'<div class="card"><b>New trip / نیا ٹرپ</b>'+fld('f_from','From / کہاں سے','Karachi')+fld('f_to','To / کہاں تک','Sukkur')+(M==='disp'?'':'<label>Saved driver / محفوظ ڈرائیور</label><select id="f_dsel"><option value="">- choose or type below / منتخب کریں یا نیچے لکھیں -</option>'+D.map(function(d,i){return'<option value="'+i+'">'+esc(d.name)+' · '+esc(d.veh)+'</option>'}).join('')+'</select>')+fld('f_veh','Vehicle no. / گاڑی نمبر','')+fld('f_drv','Driver name (optional) / ڈرائیور (اختیاری)','')+fld('f_ph','Driver phone (optional) / ڈرائیور نمبر (اختیاری)','0300...','tel')+fld('f_trk','Tracker link (optional) / ٹریکر کا لنک (اختیاری)','https://...')+fld('f_goods','Goods / سامان','e.g. 400 cartons')+fld('f_inv','Invoice / Bilty / Challan no. / انوائس، بلٹی یا چالان نمبر','')+fld('f_co','Deliver to (distributor) / وصول کنندہ','')+fld('f_tp','Transporter / ٹرانسپورٹر','')+'<label>Expected arrival / متوقع پہنچ</label><input id="f_eta" type="datetime-local" value="'+e+'"><button class="b g big" data-a="add">Create trip / ٹرپ بنائیں</button></div>'}
+function rRep(){var g={};T.forEach(function(t){var k=t.tp||'(none)',r=g[k]=g[k]||{n:0,d:0,ok:0,c:0};r.n++;if(t.status==='delivered'){r.d++;var x=dtm(t);if(x&&t.eta&&new Date(x)<=new Date(t.eta))r.ok++}if(t.claim)r.c++});
+ var ks=Object.keys(g);if(!ks.length)return'<div class="card">No data yet. / ابھی ڈیٹا نہیں۔</div>';
+ return'<div class="card"><b>Transporter report / ٹرانسپورٹر رپورٹ</b><table><tr><th>Transporter</th><th>Trips</th><th>Delivered</th><th>On time</th><th>Claims</th></tr>'+ks.map(function(k){var r=g[k];return'<tr><td>'+esc(k)+'</td><td>'+r.n+'</td><td>'+r.d+'</td><td>'+(r.d?Math.round(r.ok*100/r.d)+'%':'-')+'</td><td>'+r.c+'</td></tr>'}).join('')+'</table><button class="b" data-a="csv">Download CSV / ایکسل فائل</button></div>'}
+function render(){var mb=document.getElementById('mb');if(mb)mb.textContent=M==='disp'?'Mode: Dispatcher / ڈسپیچر موڈ (tap to switch)':'Mode: Full / مکمل موڈ (tap to switch)';var dt=document.querySelector('#nav [data-tab=drv]');if(dt)dt.style.display=M==='disp'?'none':'';if(M==='disp'&&tab==='drv')tab='trips';document.querySelectorAll('#nav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===tab)});v.innerHTML=tab==='trips'?rTrips():tab==='new'?rNew():tab==='drv'?rDrv():rRep()}
+function upd(id){cur=get(id);if(!cur)return;
+ sh.innerHTML='<b>'+esc(cur.id)+' · '+esc(cur.veh)+'</b><div class="mut">Driver screen / ڈرائیور اسکرین</div><label>Note (checkpoint, delay, shortage) / نوٹ</label><textarea id="nt" rows="2"></textarea><button class="b big" data-a="st" data-s="loaded">Loaded / لوڈ ہوا</button><button class="b o big" data-a="st" data-s="onway">On the way / راستے میں</button><button class="b x big" data-a="st" data-s="note">Add note only / صرف نوٹ</button><button class="b g big" data-a="st" data-s="delivered">Delivered / پہنچ گیا</button><label><input type="checkbox" id="cl" style="width:auto"> Shortage or damage claim (describe in note) / کمی یا نقصان کا دعویٰ</label><button class="b x big" data-a="close">Close / بند</button>';ov.classList.add('on')}
+function st(s){if(!cur)return;var n=document.getElementById('nt').value.trim(),cl=document.getElementById('cl').checked;
+ cur.log.push({t:new Date().toISOString(),s:s==='note'?cur.status:s,n:n});if(s!=='note')cur.status=s;if(cl)cur.claim=n||'Claim recorded';
+ sv();ov.classList.remove('on');render()}
+function add(){function g(i){return document.getElementById(i).value.trim()}
+ if(!g('f_from')||!g('f_to')||!g('f_veh')){alert('Please fill From, To and Vehicle no. / کہاں سے، کہاں تک اور گاڑی نمبر لکھیں');return}
+ var n=T.reduce(function(m,t){return Math.max(m,parseInt(t.id.slice(2),10)||0)},0)+1;
+ T.push({id:'T-'+('00'+n).slice(-3),from:g('f_from'),to:g('f_to'),veh:g('f_veh'),drv:g('f_drv'),phone:g('f_ph'),goods:g('f_goods'),inv:g('f_inv'),co:g('f_co'),tp:g('f_tp'),trk:g('f_trk'),eta:g('f_eta'),status:'created',log:[{t:new Date().toISOString(),s:'created',n:''}],claim:'',docs:[]});
+ sv();tab='trips';render()}
+function sample(){var H=36e5,now=Date.now();function iso(h){return new Date(now+h*H).toISOString()}
+ T=[{id:'T-001',from:'Karachi',to:'Sukkur',veh:'TEST-101',drv:'Driver A',phone:'03001234567',goods:'400 cartons tea',inv:'INV-1001',co:'Sample Distributor 1',tp:'Sample Transport A',eta:iso(-26),status:'delivered',log:[{t:iso(-48),s:'created',n:''},{t:iso(-44),s:'loaded',n:''},{t:iso(-40),s:'onway',n:'Left Karachi'},{t:iso(-27),s:'delivered',n:'All received'}],claim:''},
+ {id:'T-002',from:'Lahore',to:'Hyderabad',veh:'TEST-202',drv:'Driver B',phone:'03007654321',goods:'250 bags edible oil',inv:'INV-1002',co:'Sample Distributor 2',tp:'Sample Transport B',eta:iso(-3),status:'onway',log:[{t:iso(-20),s:'created',n:''},{t:iso(-16),s:'onway',n:'Checkpoint at Multan, papers shown'}],claim:''},
+ {id:'T-003',from:'Karachi',to:'Larkana',veh:'TEST-303',drv:'Driver C',phone:'03009998877',goods:'300 cartons biscuits',inv:'INV-1003',co:'Sample Distributor 3',tp:'Sample Transport A',eta:iso(8),status:'loaded',log:[{t:iso(-2),s:'created',n:''},{t:iso(-1),s:'loaded',n:''}],claim:''}];
+ sv();render()}
+
+function rDrv(){dphoto='';
+ return'<div class="card"><b>Driver intro / ڈرائیور کا تعارف</b><div class="mut">Only collect with the driver\'s consent. Data stays on this phone. / ڈرائیور کی رضامندی سے لیں۔ ڈیٹا صرف اس فون میں رہتا ہے۔</div>'+fld('d_name','Full name / پورا نام','')+fld('d_ph','Mobile / موبائل','0300...','tel')+fld('d_cnic','CNIC no. (optional) / شناختی کارڈ نمبر (اختیاری)','')+fld('d_lic','Licence no. / لائسنس نمبر','')+fld('d_veh','Vehicle no. / گاڑی نمبر','')+fld('d_home','Home town / address / گھر کا پتہ','')+fld('d_em','Emergency contact (name, number) / ہنگامی رابطہ','')+fld('d_tp','Transporter / ٹرانسپورٹر','')+'<label>Photo / تصویر</label><label class="b x">Take photo / تصویر لیں<input type="file" id="d_pf" accept="image/*" capture="user" style="display:none"></label><div id="d_pv"></div><label style="font-weight:normal"><input type="checkbox" id="d_ok" style="width:auto"> Driver agreed to share this info / ڈرائیور اس معلومات پر راضی ہے</label><button class="b g big" data-a="dsave">Save driver / محفوظ کریں</button></div>'+
+ D.map(function(d,i){return'<div class="card"><div class="row"><span style="display:flex;gap:10px;align-items:center">'+(d.photo?'<img class="ph" src="'+d.photo+'">':'<span class="ph"></span>')+'<b>'+esc(d.name)+'</b></span><button class="b x" data-a="ddel" data-i="'+i+'">Delete</button></div><div class="mut">Mobile: '+esc(d.phone)+'<br>Vehicle: '+esc(d.veh)+' · Licence: '+esc(d.lic||'-')+'<br>CNIC: '+esc(d.cnic||'-')+'<br>Home: '+esc(d.home||'-')+'<br>Emergency: '+esc(d.em||'-')+'<br>Transporter: '+esc(d.tp||'-')+'</div><a class="b g" href="tel:'+esc(d.phone)+'">Call / کال</a><a class="b" target="_blank" rel="noopener" href="https://wa.me/'+phn(d.phone)+'">WhatsApp</a></div>'}).join('')}
+function dsave(){function g(i){return document.getElementById(i).value.trim()}
+ if(!g('d_name')||!g('d_ph')){alert('Name and mobile needed / نام اور موبائل ضروری ہیں');return}
+ if(!document.getElementById('d_ok').checked){alert('Please confirm driver consent / رضامندی کی تصدیق کریں');return}
+ D.push({name:g('d_name'),phone:g('d_ph'),cnic:g('d_cnic'),lic:g('d_lic'),veh:g('d_veh'),home:g('d_home'),em:g('d_em'),tp:g('d_tp'),photo:dphoto});
+ if(!sv()){D.pop();return}render()}
+function mapv(id){cur=get(id);if(!cur)return;var L=cur.loc,u='https://www.google.com/maps/dir/?api=1&origin='+q(cur.from)+'&destination='+q(cur.to);
+ sh.innerHTML='<b>'+esc(cur.id)+' · '+esc(cur.from)+' → '+esc(cur.to)+'</b><iframe src="https://maps.google.com/maps?saddr='+q(cur.from)+'&daddr='+q(cur.to)+'&output=embed" loading="lazy"></iframe>'+
+ (L?'<div class="mut">Last driver location / ڈرائیور کی آخری جگہ: '+fd(L.t)+'</div><iframe src="https://maps.google.com/maps?q='+L.lat+','+L.lng+'&z=12&output=embed" loading="lazy"></iframe>':'<div class="mut">No driver location yet. / ابھی ڈرائیور کی لوکیشن نہیں۔</div>')+
+ (/^https?:\/\//i.test(cur.trk||'')?'<a class="b o" target="_blank" rel="noopener" href="'+esc(cur.trk)+'">Open vehicle tracker / ٹریکر کھولیں</a>':'')+'<a class="b" target="_blank" rel="noopener" href="'+u+'">Open in Google Maps / گوگل میپس</a><button class="b o" data-a="loc">Driver: save my location now / میری لوکیشن محفوظ کریں</button><a class="b g" target="_blank" rel="noopener" href="https://wa.me/'+phn(cur.phone)+'?text='+encodeURIComponent('Trip '+cur.id+': please share your WhatsApp live location. / براہ کرم واٹس ایپ لائیو لوکیشن بھیجیں۔')+'">Ask driver for live location / لائیو لوکیشن مانگیں</a><div class="mut" style="margin-top:8px">True automatic live tracking needs a server and the driver\'s app (next version). Here the driver taps to save location, or shares WhatsApp live location. / خودکار لائیو ٹریکنگ کے لیے سرور درکار ہے (اگلا ورژن)۔</div><button class="b x big" data-a="close">Close / بند</button>';ov.classList.add('on')}
+function loc(){if(!navigator.geolocation){alert('Location not supported');return}
+ navigator.geolocation.getCurrentPosition(function(p){cur.loc={lat:p.coords.latitude,lng:p.coords.longitude,t:new Date().toISOString()};cur.log.push({t:cur.loc.t,s:cur.status,n:'Location saved '+cur.loc.lat.toFixed(4)+','+cur.loc.lng.toFixed(4)});sv();mapv(cur.id)},function(){alert('Location permission denied or unavailable / لوکیشن کی اجازت نہیں ملی')},{enableHighAccuracy:true,timeout:15000})}
+function docv(id){cur=get(id);if(!cur)return;cur.docs=cur.docs||[];
+ sh.innerHTML='<b>Documents · '+esc(cur.id)+'</b><div class="mut">'+esc(cur.from)+' → '+esc(cur.to)+' · '+esc(cur.veh)+'</div><label>Type / قسم</label><select id="dk"><option>Bilty / بلٹی</option><option>Invoice / انوائس</option><option>Challan / چالان</option><option>Gate pass / گیٹ پاس</option><option>Delivery proof / وصولی کا ثبوت</option><option>Other / دیگر</option></select><label class="b">Scan / اسکین<input type="file" id="dscan" accept="image/*" capture="environment" style="display:none"></label><label class="b o">Upload / اپ لوڈ<input type="file" id="dup" accept="image/*,application/pdf" style="display:none"></label>'+
+ (cur.docs.length?cur.docs.map(function(d,i){var im=/^data:image/.test(d.u);return'<div class="card" style="margin-top:10px"><b>'+esc(d.k)+'</b><div class="mut">'+fd(d.t)+' · '+esc(d.n)+'</div>'+(im?'<img class="th" data-a="zoom" src="'+d.u+'">':'<div class="mut">PDF</div>')+'<br><a class="b g" download="'+esc(cur.id+'-'+d.k.split(' ')[0]+(im?'.jpg':'.pdf'))+'" href="'+d.u+'">Download / ڈاؤن لوڈ</a><button class="b x" data-a="ddoc" data-i="'+i+'">Delete</button></div>'}).join(''):'<div class="mut" style="margin-top:10px">No documents yet. / ابھی کوئی دستاویز نہیں۔</div>')+'<button class="b x big" data-a="close">Close / بند</button>';ov.classList.add('on')}
+function addDoc(f){if(!f||!cur)return;var k=document.getElementById('dk').value;
+ function push(u){cur.docs.push({k:k,n:f.name||'scan',u:u,t:new Date().toISOString()});if(!sv())cur.docs.pop();docv(cur.id)}
+ if(/^image\//.test(f.type))shrink(f,1100,push);else if(f.size>1500000)alert('PDF too large (max 1.5 MB) / پی ڈی ایف بہت بڑی ہے');else{var fr=new FileReader();fr.onload=function(){push(fr.result)};fr.readAsDataURL(f)}}
+document.addEventListener('change',function(e){var i=e.target.id;
+ if(i==='dscan'||i==='dup')addDoc(e.target.files[0]);
+ else if(i==='d_pf'&&e.target.files[0])shrink(e.target.files[0],200,function(u){dphoto=u;document.getElementById('d_pv').innerHTML='<img class="ph" src="'+u+'">'});
+ else if(i==='f_dsel'&&e.target.value!==''){var d=D[+e.target.value];document.getElementById('f_drv').value=d.name;document.getElementById('f_ph').value=d.phone;document.getElementById('f_veh').value=d.veh||'';document.getElementById('f_tp').value=d.tp||''}});
+function csv(){var q=function(s){return'"'+String(s==null?'':s).replace(/"/g,'""')+'"'},h=['id','from','to','vehicle','driver','goods','invoice','deliver_to','transporter','eta','status','claim'];
+ var r=[h.join(',')].concat(T.map(function(t){return[t.id,t.from,t.to,t.veh,t.drv,t.goods,t.inv,t.co,t.tp,t.eta,t.status,t.claim].map(q).join(',')}));
+ var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,%EF%BB%BF'+encodeURIComponent(r.join('\n'));a.download='trips.csv';document.body.appendChild(a);a.click();a.remove()}
+document.addEventListener('click',function(e){var el=e.target.closest('[data-a],[data-tab]');if(!el)return;
+ if(el.dataset.tab){tab=el.dataset.tab;render();window.scrollTo(0,0);return}
+ var a=el.dataset.a;
+ if(a==='upd')upd(el.dataset.i);else if(a==='st')st(el.dataset.s);else if(a==='close'){ov.classList.remove('on')}
+ else if(a==='share'){var t=get(el.dataset.i);if(t){var x=msg(t)+(t.loc?'\nLocation: https://maps.google.com/?q='+t.loc.lat+','+t.loc.lng:'')+'\nRoute: https://www.google.com/maps/dir/?api=1&origin='+q(t.from)+'&destination='+q(t.to);if(navigator.share)navigator.share({title:'Trip '+t.id,text:x}).catch(function(){});else window.open('https://wa.me/?text='+encodeURIComponent(x),'_blank')}}else if(a==='mode'){M=M==='disp'?'full':'disp';try{localStorage.setItem(MK,M)}catch(x){}render()}else if(a==='shapp'){var L=location.href;if(!/^https?:/i.test(L)){L=prompt('Paste the link where this app is hosted / وہ لنک جہاں یہ ایپ رکھی ہے:','')||''}if(L){var tx='Trip Tracker demo / ٹرپ ٹریکر ڈیمو by Mushtaque Ahmed Shaikh. Free to try, no login, your data stays on your phone. / آزمائش کے لیے مفت، کوئی لاگ اِن نہیں۔\n'+L;if(navigator.share)navigator.share({title:'Trip Tracker demo',text:tx}).catch(function(){});else window.open('https://wa.me/?text='+encodeURIComponent(tx),'_blank')}}else if(a==='add')add();else if(a==='dsave')dsave();else if(a==='map')mapv(el.dataset.i);else if(a==='docs')docv(el.dataset.i);else if(a==='loc')loc();else if(a==='zoom')el.classList.toggle('z');else if(a==='ddel'){if(confirm('Delete driver? / ڈرائیور مٹائیں؟')){D.splice(+el.dataset.i,1);sv();render()}}else if(a==='ddoc'){if(confirm('Delete document? / دستاویز مٹائیں؟')){cur.docs.splice(+el.dataset.i,1);sv();docv(cur.id)}}else if(a==='sample')sample();else if(a==='csv')csv();
+ else if(a==='clear'){if(confirm('Delete all trips? / تمام ٹرپس مٹائیں؟')){T=[];sv();render()}}
+ else if(a==='log'){var t=get(el.dataset.i),box=document.getElementById('l'+el.dataset.i);if(t&&box)box.innerHTML=box.innerHTML?'':t.log.map(function(x){return fd(x.t)+' · '+S[x.s]+(x.n?' · '+esc(x.n):'')}).join('<br>')}});
+try{M=localStorage.getItem(MK)==='disp'?'disp':'full'}catch(e){}
+ld();render();
+})();
+</script></body></html>
