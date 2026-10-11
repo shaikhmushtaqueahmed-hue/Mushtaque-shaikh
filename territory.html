@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Territory Town Routes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Concept: a highway-signage look. Green sign header, white sign tiles for territories, amber for full-route actions, one fixed-column town table. KM values are baked into the page (read-only). */
+:root{
+  --bg:#eef2ee; --panel:#ffffff; --ink:#13201a; --muted:#5a6a61; --line:#d6ddd7;
+  --sign:#0b5a41; --sign-2:#0e6b4d; --sign-ink:#ffffff; --sign-dim:#bfe0d1;
+  --amber:#f2b01e; --amber-ink:#2a2000; --soft:#e4eee8; --done:#1f8a5b; --focus:#1a5fd0; --warn:#a15c00; --warn-bg:#fff1d6;
+  --f-display:'Bricolage Grotesque','Arial Narrow',Arial,sans-serif;
+  --f-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --f-urdu:'Noto Naskh Arabic','Segoe UI',Tahoma,serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1511; --panel:#16211b; --ink:#e8efe9; --muted:#9db0a5; --line:#28382f;
+  --sign:#0b5a41; --sign-2:#12795a; --sign-ink:#ffffff; --sign-dim:#bfe0d1;
+  --amber:#f2b01e; --amber-ink:#2a2000; --soft:#1d2f26; --done:#4cc790; --focus:#7aa7ff; --warn:#f2b01e; --warn-bg:#2e2410; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1511; --panel:#16211b; --ink:#e8efe9; --muted:#9db0a5; --line:#28382f;
+  --sign:#0b5a41; --sign-2:#12795a; --sign-ink:#ffffff; --sign-dim:#bfe0d1;
+  --amber:#f2b01e; --amber-ink:#2a2000; --soft:#1d2f26; --done:#4cc790; --focus:#7aa7ff; --warn:#f2b01e; --warn-bg:#2e2410; color-scheme:dark}
+*{box-sizing:border-box}
+html{color-scheme:light dark}body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;padding-inline:16px}
+.wrap{max-width:900px;margin-inline:auto;padding-block:0 28px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* header sign */
+.hero{margin-inline:-16px;padding:18px 16px 14px;background:var(--sign);color:var(--sign-ink);border-bottom:5px solid var(--amber)}
+.hero .in{max-width:900px;margin-inline:auto;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:flex-end;justify-content:space-between}
+.hero h1{font-family:var(--f-display);font-weight:800;font-size:1.7rem;line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.hero .ur{font-family:var(--f-urdu);font-size:1.05rem;color:var(--sign-dim);margin:4px 0 0}
+.hero .meta{font-size:.78rem;color:var(--sign-dim);text-align:right}
+.hero .meta b{display:block;font-family:var(--f-display);font-size:.95rem;color:var(--sign-ink)}
+
+/* sticky nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin-inline:-16px;padding:10px 16px 8px;border-bottom:1px solid var(--line)}
+.tabs{max-width:900px;margin-inline:auto;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}
+.tab{flex:0 0 auto;display:flex;align-items:center;gap:7px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:600;font-size:.88rem;padding:0 12px;border-radius:8px;cursor:pointer;min-height:42px}
+.tab .n{font-variant-numeric:tabular-nums;font-size:.72rem;background:var(--soft);color:var(--muted);border-radius:5px;padding:1px 6px}
+.tab[aria-selected="true"]{background:var(--sign-2);border-color:var(--sign-2);color:#fff}
+.tab[aria-selected="true"] .n{background:rgba(255,255,255,.2);color:#fff}
+
+/* overview */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-block:16px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.6rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.78rem;color:var(--muted)}
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--done);width:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card h3{font-family:var(--f-display);font-size:1.15rem;margin:0}
+.card p{margin:0;color:var(--muted);font-size:.84rem}
+.card .cnt{display:flex;gap:12px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.card .cnt b{color:var(--ink)}
+.card .acts{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+
+/* territory */
+.terr-head{margin-block:18px 10px}
+.terr-head h2{font-family:var(--f-display);font-size:1.4rem;margin:0}
+.terr-head p{margin:2px 0 0;color:var(--muted);font-size:.88rem}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.search{flex:1 1 180px;min-width:0;min-height:42px;border:1.5px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit;padding:0 12px}
+.prog{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.full{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:600;font-size:.84rem;border-radius:8px;min-height:40px;padding:0 12px;white-space:nowrap;border:1.5px solid transparent;font-family:inherit;cursor:pointer}
+.btn.route{background:var(--sign-2);color:#fff}
+.btn.map{background:var(--panel);color:var(--ink);border-color:var(--sign-2)}
+.btn.fullroute{background:var(--amber);color:var(--amber-ink);min-height:44px;padding:0 16px}
+.btn.ghost{background:var(--panel);color:var(--ink);border-color:var(--line)}
+
+.table{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.row{display:grid;grid-template-columns:38px minmax(0,1fr) 58px 64px 52px;gap:8px;align-items:center;padding:8px 10px;border-top:1px solid var(--line)}
+.row.head{background:var(--sign);color:var(--sign-ink);border-top:0;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding-block:9px}
+.row.head .c{text-align:center;line-height:1.2}
+.row.head .c em{display:block;font-style:normal;font-family:var(--f-urdu);text-transform:none;letter-spacing:0;font-size:.78rem;color:var(--sign-dim);font-weight:500}
+.row.branch{background:var(--soft);display:block;font-family:var(--f-display);font-weight:700;font-size:.92rem}
+.row.branch small{display:block;font-family:var(--f-body);font-weight:400;font-size:.76rem;color:var(--muted)}
+.row.done .town{color:var(--muted)}
+.row.done .town b{text-decoration:line-through;text-decoration-thickness:1px}
+.chk{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--bg);color:var(--muted);font:600 .8rem var(--f-body);font-variant-numeric:tabular-nums;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.row.done .chk{background:var(--done);border-color:var(--done);color:#fff}
+.town{min-width:0;overflow-wrap:anywhere}
+.town b{font-weight:600}
+.town span{display:block;font-size:.73rem;color:var(--muted)}
+.kmv{text-align:center;font-variant-numeric:tabular-nums;font-weight:600;border-radius:7px;padding:6px 2px;background:var(--soft);font-size:.86rem}
+.kmv.pending{color:var(--warn);background:var(--warn-bg);font-weight:500}
+.row .btn{width:100%;padding:0}
+.kmi{width:100%;min-width:0;min-height:36px;border:1.5px dashed var(--warn);border-radius:7px;background:var(--warn-bg);color:var(--ink);font:inherit;font-size:.86rem;text-align:center;font-variant-numeric:tabular-nums;padding:0 2px}
+.expbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;font-size:.8rem;color:var(--muted)}
+.expbar span{flex:1 1 200px;min-width:0}
+.expbox{margin-top:8px}
+.expbox textarea{width:100%;min-height:110px;border:1.5px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit;font-size:.85rem;padding:8px}
+.note{margin-top:16px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:.84rem;color:var(--muted)}
+.note b{color:var(--ink)}
+.note.warn{background:var(--warn-bg);border-color:var(--warn);color:var(--ink)}
+footer{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);font-size:.78rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px}
+footer b{color:var(--ink)}
+@media (max-width:420px){
+  .hero h1{font-size:1.45rem}
+  .hero .meta{text-align:left}
+  .row{grid-template-columns:32px minmax(0,1fr) 46px 54px 44px;gap:5px;padding-inline:7px}
+  .chk{width:30px;height:30px}
+  .btn{font-size:.78rem}
+  .kmv{font-size:.78rem}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<div class="hero"><div class="in">
+  <div>
+    <h1>Territory Town Routes</h1>
+    <p class="ur">ٹیریٹری وائز ٹاؤن لسٹ اور روٹس</p>
+  </div>
+  <div class="meta"><b>Nawabshah Region</b>Sindh and Balochistan, Pakistan<br><button class="btn ghost" id="share" type="button" style="margin-top:8px;min-height:36px">Copy page link</button></div>
+</div></div>
+<div class="nav"><div class="tabs" id="tabs" role="tablist" aria-label="Territories"></div></div>
+<main id="main" aria-live="polite"></main>
+<div class="note"><b>How to use:</b> tap <b>Route</b> for km and time from the base town. Tap <b>Map</b> for that town alone. Tap the numbered circle to mark a town as done on your phone. All KM values are confirmed and fixed in this page. They cannot be edited.</div>
+<footer><span>Every search names the province so Google opens the right place.</span><span>Prepared for <b>Mushtaque Ahmed Shaikh</b> · all rights reserved</span></footer>
+</div>
+
+<script>
+var SD=', Sindh, Pakistan', BL=', Balochistan, Pakistan';
+function S(n){return [n,n+SD]}
+function B(n){return [n,n+BL]}
+function L(a){return a.map(S)}
+/* KM is confirmed manually. Add entries as "Territory|Town":"123", then republish. */
+var KM={'Nawabshah|Padidan':'71','Nawabshah|Bandhi':'43.5','Nawabshah|Daur':'28.8','Nawabshah|Sakrand':'19.4','Nawabshah|New Saeedabad':'36.2','Nawabshah|Qazi Ahmed':'33.1','Nawabshah|Daulatpur':'58.3','Nawabshah|Sanghar':'64.5','Nawabshah|Jam Sahib':'27.1','Nawabshah|Tando Adam':'79.7','Nawabshah|Shahpur Chakar':'31.3','Nawabshah|Shahdadpur':'59.2','Nawabshah|Sarhari':'28'};
+var T=[
+ {id:'Nawabshah',base:'Nawabshah',desc:'Padidan to Shahpur Chakar, including Shahdadpur and Sarhari',br:[L(['Padidan','Bandhi','Daur','Sakrand','New Saeedabad','Hala','Bhit Shah','Qazi Ahmed','Daulatpur','Sanghar','Jam Sahib','Tando Adam','Shahpur Chakar','Shahdadpur','Sarhari'])]},
+ {id:'Larkana',base:'Larkana',desc:'Madeji to Dokri',br:[L(['Madeji','Ratodero','Naudero','Shahdadkot','Qambar','Badah','Warah','Wagan','Nasirabad','Dokri'])]},
+ {id:'Dadu',base:'Dadu',desc:'Dadu to Mehar side and Dadu to Sann side',
+  br:[[['Khanpur','Khanpur, Dadu, Sindh, Pakistan'],S('Kakar'),S('Khairpur Nathan Shah'),S('Mehar')],
+      [['Piaro Goth','Piyaro Goth, Dadu, Sindh, Pakistan'],S('Phulji'),S('Rahmani Nagar')],
+      [S('Bhan Saeedabad'),S('Sehwan'),S('Sann'),S('Ranikot')],
+      [S('Johi'),S('Wahi Pandhi'),['Gorakh Hill','Gorakh Hill, Dadu, Sindh, Pakistan']]],
+  names:['Branch 1: Mehar side','Branch 2: Inner loop line','Branch 3: Sehwan side','Branch 4: Johi side'],
+  sub:['Khanpur, Kakar, Khairpur Nathan Shah, Mehar','Piaro Goth, Phulji, Rahmani Nagar','Bhan Saeedabad, Sehwan, Sann, then Ranikot (inner loop from Sann)','Johi, Wahi Pandhi, Gorakh Hill']},
+ {id:'Sukkur',base:'Sukkur',desc:'Sukkur to Ubauro, towns on the strip',br:[L(['Pano Aqil','Ghotki','Mirpur Mathelo','Daharki','Ubauro'])]},
+ {id:'Khairpur-1',base:'Khairpur',desc:'Via Mehran Highway, and the Chundiko to Sanghar road',
+  br:[L(['Pacca Chang','Bhiria Road','Kot Bungalow','Chundiko','Kumb','Tharri Mirwah','Mehrabpur']),[S('Kathore'),['Tajal','Tajal, Khairpur, Sindh, Pakistan'],['Qalmi Quran','Qalmi Quran, Sindh, Pakistan'],['Pharaharo','Phariaro, Sindh, Pakistan'],['Head Jamrao','Head Jamrao, Sanghar, Sindh, Pakistan'],S('Sanghar')]],
+  names:['Main line: Mehran Highway','Chundiko to Sanghar road'],
+  sub:['Pacca Chang to Mehrabpur','Kathore, Tajal, Qalmi Quran, Pharaharo, Head Jamrao, Sanghar']},
+ {id:'Khairpur-2',base:'Khairpur',desc:'Pir Goth to Moro via National Highway; Shahpur after Moro',
+  br:[L(['Pir Goth','Gambat','Ranipur','Hingorja','Sitharja','Kotri Kabir','Halani','Kandiaro','Bhiria City','Tharu Shah','Naushahro Feroze','New Jatoi','Mithiani','Moro','Shahpur Jahania']),[S('Khanwahan')]],
+  names:['Main line: National Highway','Inner loop from Kotri Kabir'],
+  sub:['Pir Goth to Shahpur Jahania','Khanwahan']},
+ {id:'Shikarpur',base:'Shikarpur',desc:'Three branches from Shikarpur',
+  br:[[S('Garhi Yasin'),S('Jacobabad'),['Sibi','Sibi, Balochistan, Pakistan']],[S('Kandhkot'),S('Kashmore')],[S('Thul'),B('Dera Allah Yar'),B('Usta Muhammad'),B('Dera Murad Jamali')]],
+  names:['Branch 1','Branch 2','Branch 3'],
+  sub:['Garhi Yasin, Jacobabad, Sibi (Balochistan)','Kandhkot, Kashmore','Thul (Sindh) and three Balochistan towns. Check the order on the map.']}
+];
+/* Confirmed KM, typed by the owner from Google Maps. Locked in this page. */
+var KMTXT=`Nawabshah | Hala | 54.9
+Nawabshah | Bhit Shah | 62.4
+Larkana | Madeji | 36
+Larkana | Ratodero | 29.9
+Larkana | Naudero | 21.3
+Larkana | Shahdadkot | 53.3
+Larkana | Qambar | 22.8
+Larkana | Badah | 51.6
+Larkana | Warah | 45.9
+Larkana | Wagan | 27.2
+Larkana | Nasirabad | 40.7
+Larkana | Dokri | 29.7
+Dadu | Khanpur | 38.3
+Dadu | Kakar | 34.4
+Dadu | Khairpur Nathan Shah | 52.1
+Dadu | Mehar | 63.4
+Dadu | Piaro Goth | 24.4
+Dadu | Phulji | 27.1
+Dadu | Rahmani Nagar | 38.1
+Dadu | Bhan Saeedabad | 24.4
+Dadu | Sehwan | 48.2
+Dadu | Sann | 106
+Dadu | Ranikot | 143
+Dadu | Johi | 19.7
+Dadu | Wahi Pandhi | 45.8
+Dadu | Gorakh Hill | 94.9
+Sukkur | Pano Aqil | 48.7
+Sukkur | Ghotki | 83.2
+Sukkur | Mirpur Mathelo | 109
+Sukkur | Daharki | 123
+Sukkur | Ubauro | 135
+Khairpur-1 | Pacca Chang | 89.6
+Khairpur-1 | Bhiria Road | 97.7
+Khairpur-1 | Kot Bungalow | 19.8
+Khairpur-1 | Chundiko | 54.6
+Khairpur-1 | Kumb | 32.8
+Khairpur-1 | Tharri Mirwah | 64.5
+Khairpur-1 | Mehrabpur | 70.2
+Khairpur-2 | Pir Goth | 20
+Khairpur-2 | Gambat | 33.8
+Khairpur-2 | Ranipur | 41.5
+Khairpur-2 | Hingorja | 52.9
+Khairpur-2 | Sitharja | 60.6
+Khairpur-2 | Kotri Kabir | 72.1
+Khairpur-2 | Halani | 80.8
+Khairpur-2 | Kandiaro | 92.6
+Khairpur-2 | Bhiria City | 111.7
+Khairpur-2 | Tharu Shah | 123.9
+Khairpur-2 | Naushahro Feroze | 121.4
+Khairpur-2 | New Jatoi | 132
+Khairpur-2 | Mithiani | 124
+Khairpur-2 | Moro | 134
+Khairpur-2 | Shahpur Jahania | 158
+Khairpur-2 | Khanwahan | 67.3
+Shikarpur | Garhi Yasin | 16.1
+Shikarpur | Jacobabad | 42.6
+Shikarpur | Sibi | 205
+Shikarpur | Kandhkot | 67.2
+Shikarpur | Kashmore | 118
+Shikarpur | Thul | 44.1
+Shikarpur | Dera Allah Yar | 60.3
+Shikarpur | Usta Muhammad | 94
+Shikarpur | Dera Murad Jamali | 82.6
+Khairpur-1 | Kathore | 78.6
+Khairpur-1 | Tajal | 90.3
+Khairpur-1 | Qalmi Quran | 112.6
+Khairpur-1 | Pharaharo | 136.9
+Khairpur-1 | Head Jamrao | 166.7
+Khairpur-1 | Sanghar | 205`;
+KMTXT.split('\n').forEach(function(l){var p=l.split('|').map(function(s){return s.trim()});if(p.length===3&&p[2])KM[p[0]+'|'+p[1]]=p[2]});
+/* Urdu spellings so search works in Urdu too */
+var UR={'Padidan':'پڈعیدن پڈیدن','Sakrand':'سکرنڈ','New Saeedabad':'نیو سعیدآباد','Qazi Ahmed':'قاضی احمد','Daulatpur':'دولت پور','Sanghar':'سانگھڑ','Tando Adam':'ٹنڈو آدم','Shahpur Chakar':'شاہپور چاکر','Shahdadpur':'شہداد پور','Sarhari':'سرہاڑی سرہاری','Daur':'دوڑ داور','Bandhi':'باندھی بندھی','Jam Sahib':'جام صاحب','Hala':'ہالا','Tajal':'تاجل','Kathore':'کاٹھوڑ','Qalmi Quran':'قلمی قرآن','Pharaharo':'پھاراڑو','Head Jamrao':'ہیڈ جمڑاؤ جمڑائو','Phulji':'پھلجی','Johi':'جوہی جوھی','Wahi Pandhi':'واہی پاندھی','Gorakh Hill':'گورکھ ہل','Ranikot':'رنی کوٹ رانی کوٹ','Khanwahan':'خانواہن','Khanpur':'خانپور','Bhit Shah':'بھٹ شاہ','Bhan Saeedabad':'بھان سعید آباد بھان سیدآباد',
+'Madeji':'مڈیجی','Ratodero':'رتوڈیرو','Naudero':'نوڈیرو','Shahdadkot':'شہداد کوٹ','Qambar':'قمبر','Badah':'باڈھ بڈھ','Warah':'وارہ','Wagan':'واگن','Nasirabad':'نصیرآباد','Dokri':'ڈوکری',
+'Khairpur Nathan Shah':'خیرپور ناتھن شاہ','Rahmani Nagar':'رحمانی نگر','Mehar':'میہڑ مہر','Piaro Goth':'پیارو گوٹھ','Kakar':'کاکڑ','Sehwan':'سیہون','Sann':'سن',
+'Pano Aqil':'پنو عاقل','Ghotki':'گھوٹکی','Mirpur Mathelo':'میرپور ماتھیلو','Daharki':'ڈہرکی','Ubauro':'اوباوڑو',
+'Pacca Chang':'پکا چانگ','Bhiria Road':'بھریا روڈ','Kot Bungalow':'کوٹ بنگلو','Chundiko':'چنڈیکو','Kumb':'کمب','Tharri Mirwah':'ٹھری میرواہ','Mehrabpur':'مہرابپور',
+'Pir Goth':'پیر گوٹھ','Gambat':'گمبٹ','Ranipur':'رانی پور','Hingorja':'ہنگورجا','Sitharja':'ستھارجا','Kotri Kabir':'کوٹری کبیر','Halani':'ہالانی','Kandiaro':'کنڈیارو','Bhiria City':'بھریا سٹی','Tharu Shah':'ٹھارو شاہ','Naushahro Feroze':'نوشہرو فیروز','New Jatoi':'نیو جتوئی','Mithiani':'مٹھیانی','Moro':'مورو','Shahpur Jahania':'شاہپور جہانیاں',
+'Garhi Yasin':'گڑھی یاسین','Jacobabad':'جیکب آباد','Sibi':'سبی','Kandhkot':'کندھ کوٹ','Kashmore':'کشمور','Thul':'ٹھل','Dera Allah Yar':'ڈیرہ اللہ یار','Usta Muhammad':'اوستہ محمد','Dera Murad Jamali':'ڈیرہ مراد جمالی'};
+var BASEURL='https://www.google.com/maps/';
+function pp(t){return encodeURIComponent(t).replace(/%20/g,'+')}
+function dir(pts){return BASEURL+'dir/'+pts.map(pp).join('/')}
+function src(t){return BASEURL+'search/'+pp(t)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function ld(k){try{return localStorage.getItem(k)||''}catch(e){return ''}}
+function sv(k,v){try{if(v)localStorage.setItem(k,v);else localStorage.removeItem(k)}catch(e){}}
+function towns(t){return t.br.reduce(function(a,b){return a.concat(b)},[])}
+function dk(t,x){return 'done|'+t.id+'|'+x[0]}
+function stat(t){var a=towns(t),d=0,k=0;a.forEach(function(x){if(ld(dk(t,x)))d++;if(KM[t.id+'|'+x[0]])k++});return {n:a.length,d:d,k:k}}
+function fullBtns(t){
+  var h='';
+  t.br.forEach(function(tw,bi){
+    var prev=t.base+SD,qs=tw.map(function(x){return x[1]});
+    for(var p=0;p<qs.length;p+=9){
+      var part=qs.slice(p,p+9);
+      var lab=(t.br.length>1?'Branch '+(bi+1)+' full route':'Full route')+(qs.length>9?' part '+(p/9+1):'');
+      h+='<a class="btn fullroute" target="_blank" rel="noopener" href="'+dir([prev].concat(part))+'">'+lab+'</a>';
+      prev=part[part.length-1];
+    }
+  });
+  return h;
+}
+var tabs=document.getElementById('tabs'),main=document.getElementById('main'),cur=-1;
+function tabBtn(label,n,i){
+  var b=document.createElement('button');b.className='tab';b.type='button';b.setAttribute('role','tab');
+  b.innerHTML=esc(label)+(n!==null?'<span class="n">'+n+'</span>':'');
+  b.onclick=function(){show(i);try{history.replaceState(null,'','#'+(i<0?'Overview':T[i].id))}catch(e){}};
+  tabs.appendChild(b);
+}
+tabBtn('Overview',null,-1);
+T.forEach(function(t,i){tabBtn(t.id,towns(t).length,i)});
+function mark(){Array.prototype.forEach.call(tabs.children,function(b,j){b.setAttribute('aria-selected',(j-1)===cur?'true':'false')})}
+
+function overview(){
+  var tot=0,dn=0,kk=0;T.forEach(function(t){var s=stat(t);tot+=s.n;dn+=s.d;kk+=s.k});
+  var pct=tot?Math.round(dn*100/tot):0;
+  var h='<div class="stats">'+
+   '<div class="stat"><b>'+T.length+'</b><span>Territories</span></div>'+
+   '<div class="stat"><b>'+tot+'</b><span>Towns in total</span></div>'+
+   '<div class="stat"><b>'+kk+'/'+tot+'</b><span>KM confirmed</span></div>'+
+   '<div class="stat"><b>'+dn+'/'+tot+'</b><span>Marked done on this phone</span><div class="bar"><i style="width:'+pct+'%"></i></div></div></div>';
+  h+='<div class="cards">';
+  T.forEach(function(t,i){
+    var s=stat(t);
+    h+='<div class="card"><h3>'+esc(t.id)+'</h3><p>'+esc(t.desc)+'</p>'+
+      '<div class="cnt"><span><b>'+s.n+'</b> towns</span><span><b>'+s.k+'</b> km set</span><span><b>'+s.d+'</b> done</span></div>'+
+      '<div class="acts"><button class="btn ghost" type="button" data-go="'+i+'">Open list</button>'+
+      '<a class="btn fullroute" style="min-height:40px" target="_blank" rel="noopener" href="'+dir([t.base+SD].concat(t.br[0].map(function(x){return x[1]}).slice(0,9)))+'">Route</a></div></div>';
+  });
+  h+='</div>';
+  main.innerHTML=h;
+  Array.prototype.forEach.call(main.querySelectorAll('[data-go]'),function(b){b.onclick=function(){var i=+b.getAttribute('data-go');show(i);try{history.replaceState(null,'','#'+T[i].id)}catch(e){}}});
+}
+
+function show(i){
+  cur=i;mark();
+  if(i<0){overview();return}
+  var t=T[i];
+  var h='<div class="terr-head"><h2>'+esc(t.id)+' Territory</h2><p>'+esc(t.desc)+'</p></div>'+
+   '<div class="tools"><input class="search" id="q" type="search" placeholder="Search a town (English or اردو)" aria-label="Search a town"><span class="prog" id="prog"></span></div>'+
+   '<div class="full">'+fullBtns(t)+'</div>'+
+   '<div class="table" role="table"><div class="row head" role="row"><div class="c">#<em>نمبر</em></div><div>Town<em>ٹاؤن</em></div><div class="c">KM<em>کلومیٹر</em></div><div class="c">Route<em>روٹ</em></div><div class="c">Map<em>نقشہ</em></div></div>';
+  var k=0;
+  t.br.forEach(function(tw,bi){
+    if(t.br.length>1)h+='<div class="row branch" data-br="1">'+esc(t.names[bi])+'<small>'+esc(t.sub[bi])+'</small></div>';
+    tw.forEach(function(x){
+      k++;
+      var km=KM[t.id+'|'+x[0]],dn=ld(dk(t,x));
+      h+='<div class="row'+(dn?' done':'')+'" role="row" data-name="'+esc((x[0]+' '+(UR[x[0]]||'')).toLowerCase())+'">'+
+        '<button class="chk" type="button" aria-pressed="'+(dn?'true':'false')+'" aria-label="Mark '+esc(x[0])+' as done" data-k="'+esc(dk(t,x))+'">'+(dn?'✓':k)+'</button>'+
+        '<div class="town"><b>'+esc(x[0])+'</b><span>'+esc(x[1].replace(', Pakistan',''))+'</span></div>'+
+        (km?'<div class="kmv">'+esc(km)+' km</div>':'<input class="kmi" type="text" inputmode="decimal" placeholder="km" aria-label="KM for '+esc(x[0])+'" data-kk="kmv|'+esc(t.id+'|'+x[0])+'" value="'+esc(ld('kmv|'+t.id+'|'+x[0]))+'">')+
+        '<a class="btn route" target="_blank" rel="noopener" href="'+dir([t.base+SD,x[1]])+'">Route</a>'+
+        '<a class="btn map" target="_blank" rel="noopener" href="'+src(x[1])+'">Map</a></div>';
+    });
+  });
+  h+='</div>';
+  if(t.id==='Dadu')h+='<div class="note warn"><b>Check:</b> Piaro Goth, Phulji, Johi, Wahi Pandhi, Gorakh Hill and Ranikot are searched by name. Press Map on each and tell me if Google opens the wrong place.</div>';
+  if(t.id==='Khairpur-1')h+='<div class="note warn"><b>Note:</b> the Chundiko to Sanghar stations are listed in the order of their KM from Khairpur. Pharaharo is searched on the map as Phariaro.</div>';
+  if(t.id==='Shikarpur')h+='<div class="note warn"><b>Check:</b> Branch 3 order is not confirmed. Use the Route button on each town, and tell me the correct order to fix the full route.</div>';
+  main.innerHTML=h;
+  Array.prototype.forEach.call(main.querySelectorAll('.kmi'),function(inp){inp.oninput=function(){sv(inp.getAttribute('data-kk'),inp.value.trim())}});
+  var rows=main.querySelectorAll('.row[data-name]');
+  function prog(){var d=main.querySelectorAll('.row.done').length;document.getElementById('prog').textContent=d+' of '+rows.length+' done'}
+  prog();
+  Array.prototype.forEach.call(main.querySelectorAll('.chk'),function(b,idx){b.onclick=function(){
+    var key=b.getAttribute('data-k'),row=b.parentNode,on=!row.classList.contains('done');
+    row.classList.toggle('done',on);b.setAttribute('aria-pressed',on?'true':'false');
+    b.textContent=on?'✓':String(Array.prototype.indexOf.call(rows,row)+1);
+    sv(key,on?'1':'');prog();
+  }});
+  document.getElementById('q').oninput=function(e){
+    var v=e.target.value.trim().toLowerCase();
+    var shown=0;
+    Array.prototype.forEach.call(rows,function(r){var hide=!!v&&r.getAttribute('data-name').indexOf(v)<0;r.hidden=hide;if(!hide)shown++});
+    document.getElementById('prog').textContent=v?(shown?shown+' found (this list only)':'Not in this territory list'):(main.querySelectorAll('.row.done').length+' of '+rows.length+' done');
+    Array.prototype.forEach.call(main.querySelectorAll('[data-br]'),function(r){r.hidden=!!v});
+  };
+}
+var _e=document.getElementById('exp');if(_e)_e.onclick=function(){
+  var out=[];
+  T.forEach(function(t){towns(t).forEach(function(x){var v=ld('kmv|'+t.id+'|'+x[0]);if(v&&!KM[t.id+'|'+x[0]])out.push(t.id+' | '+x[0]+' | '+v)})});
+  var box=document.getElementById('expbox'),ta=document.getElementById('expta');
+  ta.value=out.length?out.join('\n'):'No KM typed yet.';
+  box.hidden=false;
+  try{navigator.clipboard.writeText(ta.value).catch(function(){ta.focus();ta.select()})}catch(e){ta.focus();ta.select()}
+};
+var start=-1,hs=(location.hash||'').slice(1);
+T.forEach(function(t,i){if(t.id===hs)start=i});
+show(start);
+
+var _s=document.getElementById('share');
+if(_s)_s.onclick=function(){
+  var u=location.href.split('#')[0];
+  if(navigator.share){navigator.share({title:'Territory Town Routes',url:u}).catch(function(){});return}
+  try{navigator.clipboard.writeText(u).then(function(){_s.textContent='Link copied'},function(){_s.textContent=u})}catch(e){_s.textContent=u}
+};
+</script>
+
+</body>
+</html>
