@@ -1,0 +1,13 @@
+Copyright (c) 2026 Mushtaque Ahmed Shaikh. All rights reserved.
+
+This repository and its contents, including the page "Territory Town Routes"
+(territory.html), the town lists, route order, distance data and design, are the
+property of Mushtaque Ahmed Shaikh.
+
+No part of this work may be copied, modified, redistributed, sold, sublicensed or
+used in another product or app without the prior written permission of the owner.
+
+Viewing the published page for personal, non-commercial use is permitted.
+
+The work is provided as is, without warranty of any kind. Distances are
+approximate and should be checked before travel.
