@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JS Check</title>
+<style>body{font:18px/1.5 Arial,sans-serif;padding:20px;background:#fff;color:#000}.b{padding:14px;border-radius:10px;margin:12px 0;font-weight:bold}</style></head>
+<body>
+<h2>Phone check</h2>
+<div class="b" style="background:#ffd6d6;color:#900" id="r">Box 1: JavaScript is OFF or blocked</div>
+<div class="b" style="background:#ffd6d6;color:#900" id="s">Box 2: Not tested</div>
+<noscript><div class="b" style="background:#ffe9a8">Browser says: scripts are disabled</div></noscript>
+<p id="ua" style="font-size:13px;word-break:break-all"></p>
+<script>
+document.getElementById('r').style.background='#cdeccd';document.getElementById('r').style.color='#060';
+document.getElementById('r').textContent='Box 1: JavaScript is ON (OK)';
+var m=[];
+try{m.push('localStorage '+(window.localStorage?'ok':'none'))}catch(e){m.push('localStorage blocked')}
+m.push('forEach '+(Array.prototype.forEach?'ok':'no'));
+m.push('classList '+(document.body.classList?'ok':'no'));
+m.push('querySelectorAll '+(document.querySelectorAll?'ok':'no'));
+var s=document.getElementById('s');s.style.background='#cdeccd';s.style.color='#060';s.textContent='Box 2: '+m.join(', ');
+document.getElementById('ua').textContent='UA: '+navigator.userAgent;
+</script>
+</body></html>
