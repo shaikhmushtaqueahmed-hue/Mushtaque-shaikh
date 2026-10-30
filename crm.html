@@ -1,0 +1,391 @@
+<title>RouteClose</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;700&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap">
+<style>
+/* Layout: indigo hero with ajrak edge and progress ring; grouped checklist; sticky close bar on phones; two columns on wide screens. */
+:root{
+  --bg:#eef0f7; --surface:#ffffff; --ink:#131a35; --muted:#59617f; --line:#dde1ef;
+  --indigo:#1d2c70; --indigo2:#2f45b0; --indigo-soft:#e4e8fb; --madder:#b3262e; --madder-soft:#fbe5e7;
+  --ok:#17794a; --ok-soft:#ddf3e7; --warn:#935d00; --warn-soft:#fff0cd;
+  --on-accent:#ffffff; --hero-ink:#1d3a0e; --hero-mute:#436a22;
+  --h1:#f1fab8; --h2:#d3ec86; --h3:#fffbd0; --edge:#7aa62a; --hink:#1d3a0e; --hmute:#436a22; --hglass:#ffffff8c; --hglassb:#ffffffb3; --ringbg:#2f5d1226; --ringfg:#3f8f1c; --ringdone:#12804f; --doodleW:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22b%22%3E%3CfeGaussianBlur%20stdDeviation%3D%220.7%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Cg%20filter%3D%22url%28%23b%29%22%20fill%3D%22none%22%20stroke%3D%22%232f5d12%22%20stroke-opacity%3D%220.20%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2841%2044%29%20rotate%2824%29%20scale%281.87%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28116%2041%29%20rotate%282%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28183%2032%29%20rotate%2821%29%20scale%281.70%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M10%202h4v3l1.600%203.200V20a2%202%200%200%201-2%202h-3.200a2%202%200%200%201-2-2V8.200L10%205zM8.400%2012.500h7.200M8.400%2016.500h7.200%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28272%2046%29%20rotate%2820%29%20scale%281.57%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%2220%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2012h.01M18%2012h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2878%20111%29%20rotate%28-21%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%2218%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M8%2020h8M12%2016v4M7%2010l3%203%207-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28159%20103%29%20rotate%288%29%20scale%281.89%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%207.5C10%205.5%204.5%206.5%204.5%2012c0%204.6%203%209%205.3%209%201%200%201.2-.6%202.2-.6s1.2.6%202.2.6c2.300%200%205.300-4.400%205.300-9%200-5.500-5.500-6.500-7.500-4.500zM12%207.500c0-2%201.200-3.600%203.200-4.500%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28228%20122%29%20rotate%2817%29%20scale%281.75%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28294%20121%29%20rotate%28-30%29%20scale%281.83%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2829%20178%29%20rotate%28-28%29%20scale%281.58%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28109%20196%29%20rotate%28-29%29%20scale%281.81%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28187%20191%29%20rotate%287%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M8%203L2.500%206l2.200%204.200L7.500%209v12h9V9l2.800%201.200L21.500%206%2016%203c-.8%201.800-2.200%202.800-4%202.800S8.800%204.800%208%203z%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28268%20184%29%20rotate%2810%29%20scale%281.62%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2864%20254%29%20rotate%28-1%29%20scale%281.76%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%223%22%20y%3D%225%22%20width%3D%2218%22%20height%3D%2216%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M3%2010h18M8%203v4M16%203v4M8%2015h3%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28152%20269%29%20rotate%2829%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28222%20262%29%20rotate%2818%29%20scale%281.59%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28298%20252%29%20rotate%28-26%29%20scale%281.73%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M10%202h4v3l1.600%203.200V20a2%202%200%200%201-2%202h-3.200a2%202%200%200%201-2-2V8.200L10%205zM8.400%2012.500h7.200M8.400%2016.500h7.200%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --t1:#0f7a58; --t2:#cf6a00; --t3:#6d3fc0; --teal:#0e7490; --doodle:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22320%22%20viewBox%3D%220%200%20320%20320%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%231d2c70%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2836%2032%29%20rotate%28-3%29%20scale%281.48%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28108%2045%29%20rotate%28-22%29%20scale%281.38%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28187%2044%29%20rotate%28-15%29%20scale%281.26%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M2.5%2020c0-3.6%202.9-6%206.5-6s6.5%202.4%206.5%206M16%204.5a3.5%203.5%200%200%201%200%207M18%2014c2.2.6%203.5%202.6%203.5%205.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28279%2041%29%20rotate%28-24%29%20scale%281.33%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2883%20121%29%20rotate%28-25%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28149%20115%29%20rotate%2812%29%20scale%281.47%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28227%20126%29%20rotate%289%29%20scale%281.39%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28313%20109%29%20rotate%287%29%20scale%281.55%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2835%20201%29%20rotate%28-19%29%20scale%281.44%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28124%20197%29%20rotate%287%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28191%20191%29%20rotate%289%29%20scale%281.45%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M2.5%2020c0-3.6%202.9-6%206.5-6s6.5%202.4%206.5%206M16%204.5a3.5%203.5%200%200%201%200%207M18%2014c2.2.6%203.5%202.6%203.5%205.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28272%20199%29%20rotate%28-22%29%20scale%281.44%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2868%20286%29%20rotate%28-25%29%20scale%281.47%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28161%20289%29%20rotate%286%29%20scale%281.40%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28236%20282%29%20rotate%289%29%20scale%281.57%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28317%20277%29%20rotate%28-13%29%20scale%281.53%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --shadow:0 1px 2px #131a3312,0 10px 30px #131a3314;
+  --f-display:'Bricolage Grotesque','Hanken Grotesk',system-ui,sans-serif;
+  --f-body:'Hanken Grotesk',system-ui,sans-serif;
+  --f-ur:'Noto Nastaliq Urdu','Noto Sans Arabic',serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a0e20; --surface:#141a36; --ink:#eef0fb; --muted:#9aa3c8; --line:#262e58;
+  --indigo:#a9b8ff; --indigo2:#7f93ff; --indigo-soft:#202955; --madder:#ff7d83; --madder-soft:#3b1f2d;
+  --ok:#62d69a; --ok-soft:#153a2b; --warn:#ffc862; --warn-soft:#3a2f12;
+  --on-accent:#0a0e20; --hero-ink:#f6ffd9; --hero-mute:#d3e6a0;
+  --h1:#25340c; --h2:#3f5a14; --h3:#6a8a1e; --edge:#1a2508; --hink:#f6ffd9; --hmute:#d3e6a0; --hglass:#ffffff1c; --hglassb:#ffffff2e; --ringbg:#ffffff26; --ringfg:#e2f58a; --ringdone:#9bf0c2; --doodleW:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22b%22%3E%3CfeGaussianBlur%20stdDeviation%3D%220.7%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Cg%20filter%3D%22url%28%23b%29%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.16%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2841%2044%29%20rotate%2824%29%20scale%281.87%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28116%2041%29%20rotate%282%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28183%2032%29%20rotate%2821%29%20scale%281.70%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M10%202h4v3l1.600%203.200V20a2%202%200%200%201-2%202h-3.200a2%202%200%200%201-2-2V8.200L10%205zM8.400%2012.500h7.200M8.400%2016.500h7.200%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28272%2046%29%20rotate%2820%29%20scale%281.57%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%2220%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2012h.01M18%2012h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2878%20111%29%20rotate%28-21%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%2218%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M8%2020h8M12%2016v4M7%2010l3%203%207-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28159%20103%29%20rotate%288%29%20scale%281.89%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%207.5C10%205.5%204.5%206.5%204.5%2012c0%204.6%203%209%205.3%209%201%200%201.2-.6%202.2-.6s1.2.6%202.2.6c2.300%200%205.300-4.400%205.300-9%200-5.500-5.500-6.500-7.500-4.500zM12%207.500c0-2%201.200-3.600%203.200-4.500%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28228%20122%29%20rotate%2817%29%20scale%281.75%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28294%20121%29%20rotate%28-30%29%20scale%281.83%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2829%20178%29%20rotate%28-28%29%20scale%281.58%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28109%20196%29%20rotate%28-29%29%20scale%281.81%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28187%20191%29%20rotate%287%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M8%203L2.500%206l2.200%204.200L7.500%209v12h9V9l2.800%201.200L21.500%206%2016%203c-.8%201.800-2.200%202.800-4%202.800S8.800%204.800%208%203z%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28268%20184%29%20rotate%2810%29%20scale%281.62%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2864%20254%29%20rotate%28-1%29%20scale%281.76%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%223%22%20y%3D%225%22%20width%3D%2218%22%20height%3D%2216%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M3%2010h18M8%203v4M16%203v4M8%2015h3%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28152%20269%29%20rotate%2829%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28222%20262%29%20rotate%2818%29%20scale%281.59%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28298%20252%29%20rotate%28-26%29%20scale%281.73%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M10%202h4v3l1.600%203.200V20a2%202%200%200%201-2%202h-3.200a2%202%200%200%201-2-2V8.200L10%205zM8.400%2012.500h7.200M8.400%2016.500h7.200%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --t1:#55d6a6; --t2:#ffb454; --t3:#b79cff; --teal:#5fd3ee; --doodle:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22320%22%20viewBox%3D%220%200%20320%20320%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c9d2ff%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2836%2032%29%20rotate%28-3%29%20scale%281.48%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28108%2045%29%20rotate%28-22%29%20scale%281.38%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28187%2044%29%20rotate%28-15%29%20scale%281.26%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M2.5%2020c0-3.6%202.9-6%206.5-6s6.5%202.4%206.5%206M16%204.5a3.5%203.5%200%200%201%200%207M18%2014c2.2.6%203.5%202.6%203.5%205.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28279%2041%29%20rotate%28-24%29%20scale%281.33%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2883%20121%29%20rotate%28-25%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28149%20115%29%20rotate%2812%29%20scale%281.47%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28227%20126%29%20rotate%289%29%20scale%281.39%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28313%20109%29%20rotate%287%29%20scale%281.55%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2835%20201%29%20rotate%28-19%29%20scale%281.44%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28124%20197%29%20rotate%287%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28191%20191%29%20rotate%289%29%20scale%281.45%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M2.5%2020c0-3.6%202.9-6%206.5-6s6.5%202.4%206.5%206M16%204.5a3.5%203.5%200%200%201%200%207M18%2014c2.2.6%203.5%202.6%203.5%205.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28272%20199%29%20rotate%28-22%29%20scale%281.44%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2868%20286%29%20rotate%28-25%29%20scale%281.47%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28161%20289%29%20rotate%286%29%20scale%281.40%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28236%20282%29%20rotate%289%29%20scale%281.57%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28317%20277%29%20rotate%28-13%29%20scale%281.53%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --shadow:0 1px 2px #0007,0 10px 30px #0005; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a0e20; --surface:#141a36; --ink:#eef0fb; --muted:#9aa3c8; --line:#262e58;
+  --indigo:#a9b8ff; --indigo2:#7f93ff; --indigo-soft:#202955; --madder:#ff7d83; --madder-soft:#3b1f2d;
+  --ok:#62d69a; --ok-soft:#153a2b; --warn:#ffc862; --warn-soft:#3a2f12;
+  --on-accent:#0a0e20; --hero-ink:#f6ffd9; --hero-mute:#d3e6a0;
+  --h1:#25340c; --h2:#3f5a14; --h3:#6a8a1e; --edge:#1a2508; --hink:#f6ffd9; --hmute:#d3e6a0; --hglass:#ffffff1c; --hglassb:#ffffff2e; --ringbg:#ffffff26; --ringfg:#e2f58a; --ringdone:#9bf0c2; --doodleW:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22b%22%3E%3CfeGaussianBlur%20stdDeviation%3D%220.7%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Cg%20filter%3D%22url%28%23b%29%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.16%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2841%2044%29%20rotate%2824%29%20scale%281.87%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28116%2041%29%20rotate%282%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28183%2032%29%20rotate%2821%29%20scale%281.70%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M10%202h4v3l1.600%203.200V20a2%202%200%200%201-2%202h-3.200a2%202%200%200%201-2-2V8.200L10%205zM8.400%2012.500h7.200M8.400%2016.500h7.200%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28272%2046%29%20rotate%2820%29%20scale%281.57%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%2220%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2012h.01M18%2012h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2878%20111%29%20rotate%28-21%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%2218%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M8%2020h8M12%2016v4M7%2010l3%203%207-6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28159%20103%29%20rotate%288%29%20scale%281.89%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%207.5C10%205.5%204.5%206.5%204.5%2012c0%204.6%203%209%205.3%209%201%200%201.2-.6%202.2-.6s1.2.6%202.2.6c2.300%200%205.300-4.400%205.300-9%200-5.500-5.500-6.500-7.500-4.500zM12%207.500c0-2%201.200-3.600%203.200-4.500%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28228%20122%29%20rotate%2817%29%20scale%281.75%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28294%20121%29%20rotate%28-30%29%20scale%281.83%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2829%20178%29%20rotate%28-28%29%20scale%281.58%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28109%20196%29%20rotate%28-29%29%20scale%281.81%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28187%20191%29%20rotate%287%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M8%203L2.500%206l2.200%204.200L7.500%209v12h9V9l2.800%201.200L21.500%206%2016%203c-.8%201.800-2.200%202.800-4%202.800S8.800%204.800%208%203z%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28268%20184%29%20rotate%2810%29%20scale%281.62%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2864%20254%29%20rotate%28-1%29%20scale%281.76%29%20translate%28-12%20-12%29%22%3E%3Crect%20x%3D%223%22%20y%3D%225%22%20width%3D%2218%22%20height%3D%2216%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M3%2010h18M8%203v4M16%203v4M8%2015h3%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28152%20269%29%20rotate%2829%29%20scale%281.84%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28222%20262%29%20rotate%2818%29%20scale%281.59%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28298%20252%29%20rotate%28-26%29%20scale%281.73%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M10%202h4v3l1.600%203.200V20a2%202%200%200%201-2%202h-3.200a2%202%200%200%201-2-2V8.200L10%205zM8.400%2012.500h7.200M8.400%2016.500h7.200%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --t1:#55d6a6; --t2:#ffb454; --t3:#b79cff; --teal:#5fd3ee; --doodle:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22320%22%20viewBox%3D%220%200%20320%20320%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c9d2ff%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2836%2032%29%20rotate%28-3%29%20scale%281.48%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28108%2045%29%20rotate%28-22%29%20scale%281.38%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28187%2044%29%20rotate%28-15%29%20scale%281.26%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M2.5%2020c0-3.6%202.9-6%206.5-6s6.5%202.4%206.5%206M16%204.5a3.5%203.5%200%200%201%200%207M18%2014c2.2.6%203.5%202.6%203.5%205.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28279%2041%29%20rotate%28-24%29%20scale%281.33%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2883%20121%29%20rotate%28-25%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28149%20115%29%20rotate%2812%29%20scale%281.47%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28227%20126%29%20rotate%289%29%20scale%281.39%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28313%20109%29%20rotate%287%29%20scale%281.55%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2835%20201%29%20rotate%28-19%29%20scale%281.44%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2%203h3l2.6%2011.5h11.2L21%206.5H6%22%2F%3E%3Ccircle%20cx%3D%229.5%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2219.5%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28124%20197%29%20rotate%287%29%20scale%281.54%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22%2F%3E%3Cpath%20d%3D%22M9%209h.01M15%208.500h.01M12%2012.500h.01M8%2015h.01M16%2015.200h.01%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28191%20191%29%20rotate%289%29%20scale%281.45%29%20translate%28-12%20-12%29%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M2.5%2020c0-3.6%202.9-6%206.5-6s6.5%202.4%206.5%206M16%204.5a3.5%203.5%200%200%201%200%207M18%2014c2.2.6%203.5%202.6%203.5%205.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28272%20199%29%20rotate%28-22%29%20scale%281.44%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M2.5%2012c3-4.6%208-6%2012-4l2.5%201.6L21.5%206v12l-4.5-3.6-2.5%201.6c-4%202-9%20.6-12-4z%22%2F%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2211%22%20r%3D%22.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2868%20286%29%20rotate%28-25%29%20scale%281.47%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%2012V4a1%201%200%200%201%201-1h8l9%209-9%209z%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28161%20289%29%20rotate%286%29%20scale%281.40%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M12%2021s7-6.2%207-11.5A7%207%200%200%200%205%209.5C5%2014.8%2012%2021%2012%2021z%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%229.5%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28236%20282%29%20rotate%289%29%20scale%281.57%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M16.500%208c-3.500.4-9.800%207.200-11.500%2013%205.800-1.700%2012.600-8%2013-11.500zM17%206.500l1.500-3.500M19%209l3-1.500M15%205.500l-2.500-2%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28317%20277%29%20rotate%28-13%29%20scale%281.53%29%20translate%28-12%20-12%29%22%3E%3Cpath%20d%3D%22M3%209l1.5-5h15L21%209M3%209h18M3%209v11h18V9M9%2020v-6h6v6%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --shadow:0 1px 2px #0007,0 10px 30px #0005; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--doodle) 0 0/320px 320px,var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.45;
+  padding-block:0 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto}
+button{font-family:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--madder);outline-offset:2px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0}
+.bar a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.9rem;display:inline-flex;gap:6px;align-items:center;min-height:44px}
+.bar a:hover{color:var(--ink)}
+.logo{font-family:var(--f-display);font-weight:800;font-size:1.25rem;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.logo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--t1),var(--t2));display:grid;place-items:center}
+.logo i svg{width:15px;height:15px;stroke:#fff}
+.logo em{font-style:normal;color:var(--madder)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:22px 20px 20px;color:var(--hero-ink);background:var(--doodleW) 0 0/300px 300px,radial-gradient(110% 130% at 100% 0%,var(--h3) 0%,transparent 60%),linear-gradient(135deg,var(--h1),var(--h2));box-shadow:var(--shadow)}
+:root[data-theme="dark"] .hero,:root:not([data-theme="light"]) .hero{--x:1}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:radial-gradient(circle at 50% 50%,#fffbd0 2.2px,transparent 3px) 0 0/14px 12px,var(--edge)}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding-bottom:14px}
+@media (max-width:460px){.hero-grid{grid-template-columns:1fr}.ringbox{justify-self:center;order:-1}}
+.hello{font-family:var(--f-ur);font-size:1.05rem;color:var(--hero-mute);line-height:1.9}
+.hero h1{font-family:var(--f-display);font-weight:800;font-size:clamp(1.55rem,5vw,2.3rem);line-height:1.08;margin:2px 0 6px;letter-spacing:-.02em;color:var(--hink)}
+.hero .date{color:var(--hero-mute);font-size:.95rem}
+.hero input#who{margin-top:10px;font:inherit;font-weight:700;background:var(--hglassb);border:1px solid var(--hglass);color:var(--hink);border-radius:10px;padding:8px 12px;min-height:40px;width:100%;max-width:290px}
+.hero input#who::placeholder{color:var(--hero-mute)}
+.ringbox{position:relative;width:148px;height:148px}
+.ringbox svg{transform:rotate(-90deg)}
+.ringbox circle{fill:none;stroke-width:13}
+.ringbox .bg{stroke:var(--ringbg)}
+.ringbox .fg{stroke:var(--ringfg);stroke-linecap:round;transition:stroke-dashoffset .7s cubic-bezier(.2,.8,.2,1),stroke .3s}
+.ringbox.done .fg{stroke:var(--ringdone)}
+.ringbox b{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:var(--f-display);font-size:2.2rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--hink);line-height:1}
+.ringbox b small{display:block;font-family:var(--f-body);font-weight:500;font-size:.72rem;color:var(--hero-mute);margin-top:4px;letter-spacing:.08em;text-transform:uppercase}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
+.kpi{background:var(--hglass);border:1px solid var(--hglassb);border-radius:14px;padding:10px 12px;min-width:0}
+.kpi b{display:block;font-family:var(--f-display);font-size:1.25rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--hink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi span{font-size:.72rem;color:var(--hero-mute);text-transform:uppercase;letter-spacing:.07em}
+
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin:16px 0;display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:5px;box-shadow:var(--shadow)}
+.tabs button{flex:1;border:0;background:transparent;color:var(--muted);font-weight:700;font-size:.95rem;padding:10px 6px;border-radius:12px;cursor:pointer;min-height:46px;display:flex;align-items:center;justify-content:center;gap:7px}
+.tabs button svg{width:18px;height:18px;stroke:currentColor}
+.tabs button svg{color:var(--c)}.tabs button[data-tab=day]{--c:var(--t1)}.tabs button[data-tab=dist]{--c:var(--t2)}.tabs button[data-tab=hist]{--c:var(--t3)}
+.tabs button[aria-selected="true"]{background:var(--c);color:#fff}.tabs button[aria-selected="true"] svg{color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tabs button[aria-selected="true"],:root:not([data-theme="light"]) .tabs button[aria-selected="true"] svg{color:#0a0e20}}
+:root[data-theme="dark"] .tabs button[aria-selected="true"],:root[data-theme="dark"] .tabs button[aria-selected="true"] svg{color:#0a0e20}
+@media (max-width:380px){.tabs button span{display:none}}
+
+/* layout of the day tab */
+.cols{display:grid;gap:16px}
+@media (min-width:900px){.cols{grid-template-columns:320px 1fr;align-items:start}.side{position:sticky;top:90px}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.card h2{font-family:var(--f-display);font-size:1.05rem;margin:0 0 12px;font-weight:800}
+.fields{display:grid;gap:12px}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.in,label.f input,label.f select{font:inherit;font-size:1rem;font-weight:500;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;width:100%;text-transform:none;letter-spacing:0}
+.glabel{display:flex;align-items:center;gap:10px;margin:18px 2px 10px;color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.glabel:first-child{margin-top:0}
+.glabel::after{content:"";flex:1;height:1px;background:var(--line)}
+ul.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.item{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;transition:border-color .25s,background .25s,transform .15s}
+.item.on{border-color:var(--ok);background:linear-gradient(90deg,var(--ok-soft),var(--surface) 80%)}
+.ico{width:48px;height:48px;border-radius:14px;background:color-mix(in srgb,var(--gc) 16%,transparent);display:grid;place-items:center;color:var(--gc)}.g0{--gc:var(--t1)}.g1{--gc:var(--t2)}.g2{--gc:var(--t3)}
+.ico svg{width:24px;height:24px;stroke:currentColor}
+.item.on .ico{background:var(--ok);color:#fff}
+.item h3{margin:0;font-size:1rem;font-weight:700;line-height:1.25}
+.item .ur{font-family:var(--f-ur);color:var(--muted);font-size:.92rem;line-height:2;display:block;direction:rtl;text-align:left}
+.tick{width:46px;height:46px;border-radius:50%;border:2px solid var(--line);background:var(--bg);cursor:pointer;display:grid;place-items:center;padding:0;color:transparent;transition:.2s}
+.tick svg{width:22px;height:22px;stroke:currentColor;stroke-width:3}
+.item.on .tick{background:var(--ok);border-color:var(--ok);color:#fff;animation:pop .3s ease}
+@keyframes pop{50%{transform:scale(1.18)}}
+.tick:disabled{cursor:default}
+.nrow{grid-column:2/4}
+.nbtn{border:0;background:transparent;color:var(--gc);font-weight:700;font-size:.82rem;padding:4px 0;cursor:pointer;min-height:32px}
+.note{font:inherit;font-size:.92rem;width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:8px 10px;border-radius:10px;margin-top:4px}
+
+/* buttons */
+.btn{font:inherit;font-weight:700;border:0;border-radius:14px;padding:12px 18px;min-height:48px;cursor:pointer;background:var(--teal);color:#fff;transition:filter .15s,transform .1s}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.ghost){color:#0a0e20}}
+:root[data-theme="dark"] .btn:not(.ghost){color:#0a0e20}
+.btn:hover:not(:disabled){filter:brightness(1.08)}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn.red{background:var(--madder);color:#fff}.btn.green{background:var(--t1);color:#fff}.btn.amber{background:var(--t2);color:#fff}.btn.violet{background:var(--t3);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.red,:root:not([data-theme="light"]) .btn.green,:root:not([data-theme="light"]) .btn.amber,:root:not([data-theme="light"]) .btn.violet{color:#0a0e20}}
+:root[data-theme="dark"] .btn.red,:root[data-theme="dark"] .btn.green,:root[data-theme="dark"] .btn.amber,:root[data-theme="dark"] .btn.violet{color:#0a0e20}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:8px 13px;min-height:42px;font-size:.88rem;border-radius:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.closebar{position:fixed;left:0;right:0;bottom:0;z-index:8;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.closebar .in2{max-width:1040px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.closebar .txt{flex:1;min-width:0;font-weight:700;font-size:.92rem;line-height:1.2}
+.closebar .txt small{display:block;color:var(--muted);font-weight:500}
+.closebar .btn{flex:none}
+.banner{background:var(--ok-soft);color:var(--ok);border-radius:16px;padding:16px;font-weight:700;margin-bottom:14px;display:flex;gap:12px;align-items:center}
+.banner svg{width:28px;height:28px;stroke:currentColor;flex:none}
+
+/* chips, ledger */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--indigo-soft);color:var(--indigo);border-radius:999px;padding:7px 13px;font-weight:700;font-size:.84rem;font-variant-numeric:tabular-nums;border:1px solid transparent;font-family:inherit}
+.chip.red{background:var(--madder-soft);color:var(--madder)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+button.chip{cursor:pointer;min-height:40px}
+button.chip[aria-pressed="true"]{border-color:currentColor}
+.dgrid{display:grid;gap:12px}
+@media (min-width:700px){.dgrid{grid-template-columns:1fr 1fr}}
+.dist{display:grid;gap:10px;align-content:start}
+.drow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}
+.dname{font-family:var(--f-display);font-weight:800;font-size:1.15rem;line-height:1.15}
+.dtown{color:var(--muted);font-size:.86rem;margin-top:2px}
+.amt{font-family:var(--f-display);font-weight:800;font-size:1.2rem;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.amt small{display:block;font-family:var(--f-body);font-weight:500;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em}
+.dnote{color:var(--muted);font-size:.9rem}
+.sample{font-size:.66rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.addf{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.addf .wide{grid-column:1/-1}
+@media (min-width:700px){.addf{grid-template-columns:2fr 1fr 1fr 1fr auto}.addf .wide{grid-column:auto}}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;grid-template-columns:minmax(80px,32%) 1fr auto;gap:10px;align-items:center;font-size:.88rem}
+.bar-row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.track{height:12px;border-radius:999px;background:var(--indigo-soft);overflow:hidden}
+.track i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--t2),var(--madder));transition:width .6s}
+.bar-row .v{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700;white-space:nowrap}
+.strip{display:grid;grid-template-columns:repeat(14,1fr);gap:5px;margin-top:6px}
+.strip i{aspect-ratio:1;border-radius:7px;background:var(--indigo-soft);display:block}
+.strip i.y{background:var(--ok)}
+.strip i.t{outline:2px solid var(--madder);outline-offset:1px}
+.hist{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.hist:last-child{border:0}
+.hist .d{font-family:var(--f-display);font-weight:800}
+.hist small{color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:26px 8px}
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(30px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;max-width:calc(100vw - 32px);z-index:20;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+pre.report{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;font-size:.9rem;margin:12px 0 0}
+footer{margin-top:28px;text-align:center;color:var(--muted);font-size:.85rem}
+footer a{color:var(--indigo2);font-weight:700}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.cats{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:2px 0 14px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.cat i{width:100%;max-width:56px;aspect-ratio:1;border-radius:16px;background:var(--hglass);border:1px solid var(--hglassb);display:grid;place-items:center;color:var(--hink);transition:transform .2s,background .2s}
+.cat:hover i{transform:translateY(-3px);background:var(--hglassb)}
+.cat svg{width:56%;height:56%;stroke:currentColor}
+.cat span{font-size:.62rem;color:var(--hero-mute);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+@media (max-width:420px){.cat span{display:none}}
+.cos{margin-top:12px;font-size:.78rem;color:var(--hero-mute);line-height:1.7}
+.cos b{color:var(--hink);font-weight:700;margin-right:6px}
+.cos em{font-style:normal;display:inline-block;margin:0 6px 2px 0;padding:2px 9px;border-radius:999px;border:1px solid var(--hglassb);background:var(--hglass);color:var(--hink);font-weight:500}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></symbol>
+<symbol id="i-shop" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></symbol>
+<symbol id="i-cash" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.2.6 3.5 2.6 3.5 5.5"/></symbol>
+<symbol id="i-screen" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 10l3 3 7-6"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15h3"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-day" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5M9 8h6M9 12h6"/></symbol>
+<symbol id="i-hist" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
+<symbol id="c-cart" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h3l2.6 11.5h11.2L21 6.5H6"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></symbol>
+<symbol id="c-fish" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12c3-4.6 8-6 12-4l2.5 1.6L21.5 6v12l-4.5-3.6-2.5 1.6c-4 2-9 .6-12-4z"/><circle cx="7.5" cy="11" r=".6"/></symbol>
+<symbol id="c-fruit" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.5C10 5.5 4.5 6.5 4.5 12c0 4.6 3 9 5.3 9 1 0 1.2-.6 2.2-.6s1.2.6 2.2.6c2.300 0 5.300-4.400 5.300-9 0-5.500-5.500-6.500-7.500-4.500zM12 7.500c0-2 1.200-3.600 3.200-4.500"/></symbol>
+<symbol id="c-carrot" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16.500 8c-3.500.4-9.800 7.200-11.500 13 5.800-1.700 12.600-8 13-11.500zM17 6.500l1.500-3.500M19 9l3-1.500M15 5.500l-2.500-2"/></symbol>
+<symbol id="c-shirt" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3L2.500 6l2.200 4.200L7.500 9v12h9V9l2.800 1.200L21.500 6 16 3c-.8 1.800-2.200 2.800-4 2.800S8.800 4.800 8 3z"/></symbol>
+<symbol id="c-biscuit" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h.01M15 8.500h.01M12 12.500h.01M8 15h.01M16 15.200h.01"/></symbol>
+<symbol id="c-bottle" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3l1.600 3.200V20a2 2 0 0 1-2 2h-3.200a2 2 0 0 1-2-2V8.200L10 5zM8.400 12.500h7.200M8.400 16.500h7.200"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+<div class="bar">
+  <a href="index.html" aria-label="Back to portfolio"><svg width="18" height="18" stroke="currentColor"><use href="#i-back"/></svg>Portfolio</a>
+  <div class="logo"><i><svg><use href="#i-check"/></svg></i><span>Route<em>Close</em></span></div>
+</div>
+<section class="hero" aria-label="Today at a glance">
+  <div class="hero-grid">
+    <div>
+      <div class="hello" id="hello"></div>
+      <h1 id="greet">Close the day</h1>
+      <div class="date" id="today"></div>
+      <input id="who" aria-label="Your name" placeholder="Your name" maxlength="40">
+    </div>
+    <div class="ringbox" id="ring"></div>
+  </div>
+  <div class="cats" aria-label="Product categories">
+    <div class="cat"><i><svg><use href="#c-cart"/></svg></i><span>Grocery</span></div>
+    <div class="cat"><i><svg><use href="#c-fish"/></svg></i><span>Seafood</span></div>
+    <div class="cat"><i><svg><use href="#c-fruit"/></svg></i><span>Fruit</span></div>
+    <div class="cat"><i><svg><use href="#c-carrot"/></svg></i><span>Veg</span></div>
+    <div class="cat"><i><svg><use href="#c-shirt"/></svg></i><span>Apparel</span></div>
+    <div class="cat"><i><svg><use href="#c-biscuit"/></svg></i><span>Biscuits</span></div>
+    <div class="cat"><i><svg><use href="#c-bottle"/></svg></i><span>Beverages</span></div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="cos"><b>Worked with</b><em>Tapal</em><em>Qarshi</em><em>Mezan</em><em>LU</em><em>SBL Pepsi</em><em>IFFCO</em><em>Lotte Kolson</em><em>Vista</em></div>
+</section>
+<div class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" id="t-day" data-tab="day" aria-selected="true"><svg><use href="#i-day"/></svg><span>Daily Close</span></button>
+  <button role="tab" id="t-dist" data-tab="dist" aria-selected="false"><svg><use href="#i-book"/></svg><span>Distributors</span></button>
+  <button role="tab" id="t-hist" data-tab="hist" aria-selected="false"><svg><use href="#i-hist"/></svg><span>History</span></button>
+</div>
+<main id="view"></main>
+<footer>RouteClose by Mushtaque Ahmed Shaikh · 30+ years in FMCG sales · <a href="index.html">Back to portfolio</a></footer>
+</div>
+<div class="closebar" id="cbar" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+var ITEMS=[
+ {g:0,ic:'pin',en:'Route visits completed',ur:'آج کے روٹ کی تمام وزٹس مکمل'},
+ {g:0,ic:'tag',en:'Scheme checklist confirmed',ur:'اسکیم چیک لسٹ کی تصدیق'},
+ {g:0,ic:'shop',en:'Shops listed against scheme',ur:'دکانوں کی فہرست اسکیم کے مطابق'},
+ {g:1,ic:'cash',en:'Recovery submitted, route-wise',ur:'ریکوری روٹ کے حساب سے جمع'},
+ {g:1,ic:'users',en:'Distributor meeting held',ur:'ڈسٹری بیوٹر سے شام کی ملاقات'},
+ {g:2,ic:'screen',en:'System updated and Day End run',ur:'سسٹم اپڈیٹ اور ڈے اینڈ'},
+ {g:2,ic:'cal',en:'Tomorrow’s plan set',ur:'کل کا منصوبہ طے'}];
+var GROUPS=['In the field','Money and people','System and tomorrow'];
+var KEY='routeclose.v2',mem=null,tab='day',filter='all',showAdd=false,payId=0,delId=0,openNotes={};
+function load(){try{var s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return mem}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}try{mem=JSON.parse(JSON.stringify(S))}catch(e){}}
+function iso(d){var m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(x<10?'0':'')+x}
+function addDays(n){var d=new Date();d.setDate(d.getDate()+n);return iso(d)}
+var TODAY=iso(new Date());
+var S=load();
+if(!S){S={name:'Mushtaque Ahmed Shaikh',route:'Route 1',days:{},nid:5,dists:[
+ {id:1,name:'Ali Traders',town:'Nawabshah',out:420000,last:addDays(-9),next:addDays(2),note:'Asks for extra discount. Call on Monday.',sample:true},
+ {id:2,name:'Sindh Distribution Co.',town:'Sukkur',out:185000,last:addDays(-3),next:addDays(4),note:'Stock of the 1 kg pack is running low.',sample:true},
+ {id:3,name:'Khan Brothers',town:'Larkana',out:760000,last:addDays(-21),next:addDays(-2),note:'Payment promised last week, not received.',sample:true},
+ {id:4,name:'Malik & Sons',town:'Khairpur',out:0,last:addDays(-1),next:addDays(10),note:'Clear account. Ready for the new scheme.',sample:true}]};save()}
+function day(){if(!S.days[TODAY])S.days[TODAY]={c:ITEMS.map(function(){return false}),n:ITEMS.map(function(){return''}),rec:'',closed:false,at:'',route:S.route};return S.days[TODAY]}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function pkr(n){return 'PKR '+Number(n||0).toLocaleString('en-US')}
+function short(n){n=+n||0;return n>=1e6?(n/1e6).toFixed(2).replace(/\.?0+$/,'')+'M':n>=1e3?Math.round(n/1e3)+'K':String(n)}
+function fmt(d){if(!d)return'—';var p=d.split('-');return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}
+function ic(n){return'<svg stroke="currentColor"><use href="#i-'+n+'"/></svg>'}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove('show')},2300)}
+function streak(){var n=0,d=new Date();if(!(S.days[iso(d)]&&S.days[iso(d)].closed))d.setDate(d.getDate()-1);
+  while(S.days[iso(d)]&&S.days[iso(d)].closed){n++;d.setDate(d.getDate()-1)}return n}
+function status(d){if(!d.next)return{t:'No visit set',c:''};
+  if(d.next<TODAY)return{t:'Overdue since '+fmt(d.next),c:'red'};
+  if(d.next===TODAY)return{t:'Visit today',c:'warn'};
+  if(d.next<=addDays(7))return{t:'Next visit '+fmt(d.next),c:'warn'};
+  return{t:'Next visit '+fmt(d.next),c:''}}
+function totals(){var ds=S.dists;return{out:ds.reduce(function(a,d){return a+(+d.out||0)},0),over:ds.filter(function(d){return d.next&&d.next<TODAY}).length,soon:ds.filter(function(d){return d.next&&d.next>=TODAY&&d.next<=addDays(7)}).length}}
+
+function renderHero(){
+  var d=day(),done=d.c.filter(Boolean).length,tot=ITEMS.length,R=60,C=2*Math.PI*R,off=C*(1-done/tot),h=new Date().getHours();
+  document.getElementById('hello').textContent='السلام علیکم';
+  var first=(S.name||'').split(' ')[0];
+  document.getElementById('greet').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+(first?', '+first:'');
+  var r=document.getElementById('ring');r.className='ringbox'+(done===tot?' done':'');
+  r.innerHTML='<svg width="148" height="148" viewBox="0 0 148 148" aria-hidden="true"><circle class="bg" cx="74" cy="74" r="'+R+'"/><circle class="fg" cx="74" cy="74" r="'+R+'" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg><b><span>'+done+'/'+tot+'<small>'+(d.closed?'day closed':'steps done')+'</small></span></b>';
+  var t=totals();
+  document.getElementById('kpis').innerHTML='<div class="kpi"><b>'+streak()+'</b><span>Day streak</span></div><div class="kpi"><b>'+short(t.out)+'</b><span>Outstanding</span></div><div class="kpi"><b>'+t.over+'</b><span>Overdue visits</span></div>';
+}
+function renderBar(){var b=document.getElementById('cbar'),d=day(),done=d.c.filter(Boolean).length,tot=ITEMS.length;
+  if(tab!=='day'||d.closed){b.hidden=true;return}b.hidden=false;
+  b.innerHTML='<div class="in2"><div class="txt">'+(done===tot?'Everything is done':(tot-done)+' step'+(tot-done===1?'':'s')+' left')+'<small>'+(done===tot?'Close the day and log it':'Tick each step as you finish it')+'</small></div><button class="btn green" data-act="close"'+(done===tot?'':' disabled')+'>Close the day</button></div>'}
+
+function viewDay(){
+  var d=day(),h='<div class="cols"><aside class="side card"><h2>Today’s details</h2><div class="fields"><label class="f" for="route">Route<select id="route"'+(d.closed?' disabled':'')+'>'
+   +['Route 1','Route 2','Route 3','Route 4','Route 5','Route 6'].map(function(r){return'<option'+(S.route===r?' selected':'')+'>'+r+'</option>'}).join('')
+   +'</select></label><label class="f" for="rec">Recovery today (PKR)<input id="rec" inputmode="numeric" placeholder="0" value="'+esc(d.rec)+'"'+(d.closed?' disabled':'')+'></label></div>'
+   +'<div class="actions" style="margin-top:14px">'+(d.closed?'<button class="btn ghost sm" data-act="reopen">Reopen today</button><button class="btn sm violet" data-act="report">Copy day report</button>':'<button class="btn ghost sm" data-act="all">Tick all</button><button class="btn ghost sm" data-act="clear">Reset</button><button class="btn sm violet" data-act="report">Copy report</button>')+'</div></aside><div>';
+  if(d.closed)h+='<div class="banner">'+ic('check').replace('<svg','<svg fill="none" stroke-width="3"')+'<div>Day closed at '+esc(d.at)+'. Everything is logged in History.</div></div>';
+  var g=-1;h+='<ul class="list">';
+  ITEMS.forEach(function(it,i){
+    if(it.g!==g){g=it.g;h+='</ul><div class="glabel">'+GROUPS[g]+'</div><ul class="list">'}
+    var on=d.c[i],hasN=d.n[i]||openNotes[i];
+    h+='<li class="item g'+it.g+(on?' on':'')+'"><div class="ico">'+ic(it.ic)+'</div><div><h3>'+esc(it.en)+'</h3><span class="ur">'+esc(it.ur)+'</span></div>'
+     +'<button class="tick" data-tick="'+i+'" aria-pressed="'+!!on+'" aria-label="Mark done: '+esc(it.en)+'"'+(d.closed?' disabled':'')+'><svg fill="none"><use href="#i-check"/></svg></button>'
+     +'<div class="nrow">'+(hasN?'<input class="note" id="note'+i+'" data-note="'+i+'" placeholder="Note" value="'+esc(d.n[i])+'"'+(d.closed?' disabled':'')+'>':(d.closed?'':'<button class="nbtn" data-addnote="'+i+'">+ Add a note</button>'))+'</div></li>'});
+  h+='</ul></div></div>';return h}
+
+function viewDist(){
+  var ds=S.dists.filter(function(d){return filter==='all'||(filter==='over'&&d.next&&d.next<TODAY)||(filter==='soon'&&d.next&&d.next>=TODAY&&d.next<=addDays(7))});
+  var t=totals(),h='<div class="chips"><button class="chip" data-filter="all" aria-pressed="'+(filter==='all')+'">All '+S.dists.length+'</button><button class="chip red" data-filter="over" aria-pressed="'+(filter==='over')+'">Overdue '+t.over+'</button><button class="chip warn" data-filter="soon" aria-pressed="'+(filter==='soon')+'">Due this week '+t.soon+'</button><button class="chip ok" data-act="toggleadd">'+(showAdd?'Close form':'+ Add distributor')+'</button></div>';
+  if(showAdd)h+='<form class="card addf" id="addf" autocomplete="off"><input class="in wide" id="an" placeholder="Distributor name" required maxlength="40" aria-label="Distributor name"><input class="in" id="at" placeholder="Town" maxlength="30" aria-label="Town"><input class="in" id="ao" inputmode="numeric" placeholder="Outstanding PKR" aria-label="Outstanding amount"><input class="in" id="ax" type="date" aria-label="Next visit date"><button class="btn amber" type="submit">Add</button></form>';
+  var top=S.dists.filter(function(d){return d.out>0}).sort(function(a,b){return b.out-a.out}).slice(0,6),mx=top.length?top[0].out:1;
+  if(top.length)h+='<section class="card" style="margin-bottom:14px"><h2>Outstanding by distributor</h2><div class="bars">'+top.map(function(d){return'<div class="bar-row"><span class="nm">'+esc(d.name)+'</span><span class="track"><i style="width:'+Math.max(4,Math.round(d.out/mx*100))+'%"></i></span><span class="v">'+short(d.out)+'</span></div>'}).join('')+'</div></section>';
+  if(S.dists.some(function(d){return d.sample}))h+='<div class="actions" style="margin:0 0 12px"><button class="btn ghost sm" data-act="clearsamples">Remove sample distributors</button></div>';
+  if(!ds.length)return h+'<div class="empty card">Nothing here. Change the filter or add a distributor.</div>';
+  ds.sort(function(a,b){return (a.next||'9999').localeCompare(b.next||'9999')});
+  h+='<div class="dgrid">'+ds.map(function(d){var s=status(d);
+   return'<article class="card dist"><div class="drow"><div><div class="dname">'+esc(d.name)+(d.sample?'<span class="sample">Sample</span>':'')+'</div><div class="dtown">'+esc(d.town||'')+' · last visit '+fmt(d.last)+'</div></div><div class="amt">'+pkr(d.out)+'<small>outstanding</small></div></div>'
+    +'<div><span class="chip '+s.c+'">'+esc(s.t)+'</span></div><div class="dnote">'+esc(d.note||'')+'</div>'
+    +(payId===d.id?'<div class="actions"><input class="in" id="payamt" inputmode="numeric" placeholder="Amount received" style="flex:1 1 140px" aria-label="Payment received"><button class="btn sm" data-paysave="'+d.id+'">Save</button><button class="btn ghost sm" data-paycancel="1">Cancel</button></div>'
+     :'<div class="actions"><button class="btn sm green" data-visit="'+d.id+'">Visited today</button><button class="btn ghost sm" data-pay="'+d.id+'">Record payment</button><button class="btn ghost sm" data-next="'+d.id+'">Visit +7 days</button><button class="btn ghost sm" data-del="'+d.id+'">'+(delId===d.id?'Tap again to delete':'Delete')+'</button></div>')+'</article>'}).join('')+'</div>';
+  return h}
+
+function viewHist(){
+  var ks=Object.keys(S.days).filter(function(k){return S.days[k].closed}).sort().reverse();
+  var rec=ks.reduce(function(a,k){return a+(+S.days[k].rec||0)},0),strip='';
+  for(var i=13;i>=0;i--){var k=addDays(-i),c=S.days[k]&&S.days[k].closed;strip+='<i class="'+(c?'y':'')+(i===0?' t':'')+'" title="'+fmt(k)+(c?' closed':'')+'"></i>'}
+  var h='<section class="card" style="margin-bottom:14px"><h2>Last 14 days</h2><div class="strip" aria-label="Days closed in the last 14 days">'+strip+'</div><div class="chips" style="margin:14px 0 0"><span class="chip ok">'+ks.length+' days closed</span><span class="chip">Streak '+streak()+'</span><span class="chip">Recovery logged '+pkr(rec)+'</span></div></section><section class="card"><h2>Closed days</h2>';
+  if(!ks.length)h+='<div class="empty">No closed days yet. Close today from the Daily Close tab and it appears here.</div>';
+  else h+=ks.map(function(k){var d=S.days[k];return'<div class="hist"><div class="d">'+fmt(k)+'</div><div>'+esc(d.route||S.route)+' · '+d.c.filter(Boolean).length+'/'+ITEMS.length+' steps<br><small>Closed '+esc(d.at)+'</small></div><div class="amt">'+pkr(d.rec)+'</div></div>'}).join('');
+  return h+'</section>'}
+
+function render(){
+  renderHero();
+  document.getElementById('view').innerHTML=tab==='day'?viewDay():tab==='dist'?viewDist():viewHist();
+  ['day','dist','hist'].forEach(function(t){document.getElementById('t-'+t).setAttribute('aria-selected',t===tab)});
+  renderBar();
+}
+function report(){var d=day(),t=totals();
+  return 'RouteClose · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})+'\n'+S.name+' · '+(S.route||'')+'\n\n'
+   +ITEMS.map(function(it,i){return (d.c[i]?'[x] ':'[ ] ')+it.en+(d.n[i]?' — '+d.n[i]:'')}).join('\n')
+   +'\n\nRecovery today: '+pkr(d.rec)+'\nDistributor outstanding: '+pkr(t.out)+'\nOverdue visits: '+t.over}
+function copy(text){
+  function fb(){var p=document.getElementById('rp');if(!p){p=document.createElement('pre');p.className='report';p.id='rp';document.getElementById('view').appendChild(p)}p.textContent=text;var r=document.createRange();r.selectNodeContents(p);var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Report shown below. Select and copy it.')}
+  try{navigator.clipboard.writeText(text).then(function(){toast('Report copied. Paste it in WhatsApp.')},fb)}catch(e){fb()}}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;var d=day(),k=b.dataset;
+  if(k.tab){tab=k.tab;render();scrollTo({top:0});return}
+  if(k.tick!==undefined){var i=+k.tick;d.c[i]=!d.c[i];save();render();return}
+  if(k.addnote!==undefined){openNotes[+k.addnote]=true;render();var n=document.getElementById('note'+k.addnote);if(n)n.focus();return}
+  if(k.filter){filter=k.filter;render();return}
+  if(k.act==='all'){d.c=d.c.map(function(){return true});save();render();toast('All steps ticked');return}
+  if(k.act==='clear'){d.c=d.c.map(function(){return false});d.n=d.n.map(function(){return''});openNotes={};save();render();return}
+  if(k.act==='close'){if(d.c.every(Boolean)){d.closed=true;d.at=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});d.route=S.route;save();render();toast('Day closed. Streak: '+streak()+(streak()===1?' day':' days'));scrollTo({top:0,behavior:'smooth'})}return}
+  if(k.act==='reopen'){d.closed=false;save();render();return}
+  if(k.act==='report'){copy(report());return}
+  if(k.act==='toggleadd'){showAdd=!showAdd;render();return}
+  if(k.act==='clearsamples'){S.dists=S.dists.filter(function(x){return!x.sample});save();render();toast('Samples removed');return}
+  if(k.paycancel){payId=0;render();return}
+  var id=+(k.visit||k.pay||k.next||k.del||k.paysave||0);if(!id)return;
+  var x=S.dists.filter(function(z){return z.id===id})[0];if(!x)return;
+  if(k.visit){x.last=TODAY;if(!x.next||x.next<=TODAY)x.next=addDays(7);save();render();toast(x.name+': visit logged')}
+  else if(k.pay){payId=id;render();var f=document.getElementById('payamt');if(f)f.focus()}
+  else if(k.paysave){var amt=parseInt((document.getElementById('payamt').value||'').replace(/[^0-9]/g,''),10)||0;payId=0;x.out=Math.max(0,(+x.out||0)-amt);save();render();toast(amt?pkr(amt)+' recorded for '+x.name:'No amount entered')}
+  else if(k.next){x.next=addDays(7);save();render();toast('Next visit set to '+fmt(x.next))}
+  else if(k.del){if(delId===id){S.dists=S.dists.filter(function(z){return z.id!==id});delId=0;save();render();toast('Deleted')}else{delId=id;render();setTimeout(function(){if(delId===id){delId=0;render()}},2800)}}
+});
+document.addEventListener('input',function(e){var t=e.target,d=day();
+  if(t.dataset.note!==undefined){d.n[+t.dataset.note]=t.value;save()}
+  else if(t.id==='rec'){d.rec=t.value.replace(/[^0-9]/g,'');save()}
+  else if(t.id==='who'){S.name=t.value;save();var f=(S.name||'').split(' ')[0],h=new Date().getHours();document.getElementById('greet').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+(f?', '+f:'')}});
+document.addEventListener('change',function(e){if(e.target.id==='route'){S.route=e.target.value;day().route=S.route;save()}});
+document.addEventListener('submit',function(e){e.preventDefault();if(e.target.id!=='addf')return;
+  var n=document.getElementById('an').value.trim();if(!n)return;
+  S.dists.push({id:S.nid++,name:n,town:document.getElementById('at').value.trim(),out:parseInt(document.getElementById('ao').value.replace(/[^0-9]/g,''),10)||0,last:'',next:document.getElementById('ax').value||addDays(7),note:'',sample:false});
+  showAdd=false;save();render();toast(n+' added')});
+
+document.getElementById('today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.getElementById('who').value=S.name||'';
+render();
+})();
+</script>
